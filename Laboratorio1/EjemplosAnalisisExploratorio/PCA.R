@@ -2,10 +2,12 @@
 #install.packages("psych")
 #install.packages("FactoMineR")
 #install.packages("corrplot")
+#install.packages("factoextra")
 library(rela)
 library(psych)
 library(FactoMineR)
 library(corrplot)
+library(factoextra)
 
 datos<-read.csv("Ejemplo.csv",stringsAsFactors = F)
 
