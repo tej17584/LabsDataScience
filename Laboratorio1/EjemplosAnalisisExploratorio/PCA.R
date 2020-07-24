@@ -1,13 +1,11 @@
-# install.packages("rela")
-# install.packages("psych")
-# install.packages("FactoMineR")
-# install.packages("corrplot")
+#install.packages("rela")
+#install.packages("psych")
+#install.packages("FactoMineR")
+#install.packages("corrplot")
 library(rela)
 library(psych)
 library(FactoMineR)
-
 library(corrplot)
-
 
 datos<-read.csv("Ejemplo.csv",stringsAsFactors = F)
 
@@ -22,7 +20,7 @@ summary(pafDatos)
 cortest.bartlett(datos[,-1])
 #el valor p es de 6.87*10-31 lo que lo hace muy pequeño
 #mucho menor a 0.05, esto nos dice que el análisis factorial
-#si podría funcionar
+#si podr�a funcionar
 
 #se muestra la matriz de correlación
 cor(datos[,-1],use = "pairwise.complete.obs")

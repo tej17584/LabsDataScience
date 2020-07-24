@@ -26,6 +26,15 @@ library(dummy)
 library(neuralnet)
 library(stringi)
 library(stringr)
+
+#install.packages("rela")
+#install.packages("psych")
+#install.packages("FactoMineR")
+#install.packages("corrplot")
+library(rela)
+library(psych)
+library(FactoMineR)
+library(corrplot)
 ##------------------FIN ZONA LIBRERIAS------------------
 
 
