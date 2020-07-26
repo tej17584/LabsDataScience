@@ -80,6 +80,7 @@ fviz_pca_var(compPrinc, col.var = "cos2",
 
 # TRABAJANDO CON IRIS
 pafIris <- paf(iris[,1:4])
+View(pafIris)
 pafIris$KMO #La adecuación muestral no es buena
 
 irisPCA <- PCA(iris[,1:4])

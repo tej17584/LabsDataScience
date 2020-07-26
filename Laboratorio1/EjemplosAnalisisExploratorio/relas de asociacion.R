@@ -9,6 +9,8 @@ datos$am <- as.factor(datos$am)
 datos$vs <- as.factor(datos$vs)
 datos$gear <- as.factor(datos$gear)
 
+View(datos)
+
 reglas<-apriori(datos[, c(2,8,9,10)], parameter = list(support = 0.2,
                                         confidence = 0.70,
                                         target = "rules"))
