@@ -49,8 +49,8 @@ library(stringr)
 
 ##-----------------ZONA DIRECTORIOS---------------------------
 getwd()
-setwd("C:/Users/josea/Desktop/Universidad/2020/DataScience/LabsDataScience/Laboratorio2")
-#setwd("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/Laboratorio1/LabsDataScience/Laboratorio1")
+#setwd("C:/Users/josea/Desktop/Universidad/2020/DataScience/LabsDataScience/Laboratorio2")
+setwd("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/Laboratorio1/LabsDataScience/Laboratorio2")
 #setwd("C:/Users/josea/Desktop/Universidad/2020/DataScience/Proyecto1/DataScienceProject1/CSV")
 #test <-read.csv("test.csv",stringsAsFactors = FALSE, na.strings = TRUE)
 #train <-read.csv("train.csv",stringsAsFactors = FALSE, na.strings = TRUE)
@@ -66,5 +66,14 @@ nombresVar<-datosImp[1,]
 datosImp<-as.data.frame(datosImp[2:nrow(datosImp),])
 nombresVar[c(1,4,5,6,8,10,11,15,16,21,23,24)]<-c("Anio","GasAviacion","GasSuperior","GasRegular","rTurboJet","DieselLS","DieselULS","AceitesLub","GrasasLub","PetroleoReconst","Orimulsion","MezclasOleosas")
 names(datosImp)<-nombresVar
+
+
+
+View(datosImp)
+##Se reemplazan "-" o "0" etc por NA en director
+datosImp$GasAviacion[datosImp$GasAviacion=="-"] <- NA
+
+
+
 
 
