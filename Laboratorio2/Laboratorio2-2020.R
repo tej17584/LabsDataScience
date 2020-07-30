@@ -70,8 +70,24 @@ names(datosImp)<-nombresVar
 
 
 View(datosImp)
-##Se reemplazan "-" o "0" etc por NA en director
+##Se reemplazan "-" o "0" etc por NA en directorend
 datosImp$GasAviacion[datosImp$GasAviacion=="-"] <- NA
+datosImp$rTurboJet[datosImp$rTurboJet=="-"] <- NA
+datosImp$DieselLS[datosImp$DieselLS=="-"] <- NA
+datosImp$DieselULS[datosImp$DieselULS=="-"] <- NA
+datosImp$PetCoke[datosImp$PetCoke=="-"] <- NA
+datosImp$AceitesLub[datosImp$AceitesLub=="-"] <- NA
+datosImp$GrasasLub[datosImp$GrasasLub=="-"] <- NA
+datosImp$Solventes[datosImp$Solventes=="-"] <- NA
+datosImp$Naftas[datosImp$Naftas=="-"] <- NA
+datosImp$Ceras[datosImp$Ceras=="-"] <- NA
+datosImp$Butano[datosImp$Butano=="-"] <- NA
+datosImp$Orimulsion[datosImp$Orimulsion=="-"] <- NA
+datosImp$MezclasOleosas[datosImp$MezclasOleosas=="-"] <- NA
+datosImp$PetroleoReconst[datosImp$PetroleoReconst=="-"] <- NA
+datosImp$MTBE[datosImp$MTBE=="-"] <- NA
+
+View(datosImp)
 
 
 
