@@ -49,8 +49,8 @@ library(stringr)
 
 ##-----------------ZONA DIRECTORIOS---------------------------
 getwd()
-#setwd("C:/Users/josea/Desktop/Universidad/2020/DataScience/LabsDataScience/Laboratorio2")
-setwd("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/Laboratorio1/LabsDataScience/Laboratorio2")
+setwd("C:/Users/josea/Desktop/Universidad/2020/DataScience/LabsDataScience/Laboratorio2")
+#setwd("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/Laboratorio1/LabsDataScience/Laboratorio2")
 #setwd("C:/Users/josea/Desktop/Universidad/2020/DataScience/Proyecto1/DataScienceProject1/CSV")
 #test <-read.csv("test.csv",stringsAsFactors = FALSE, na.strings = TRUE)
 #train <-read.csv("train.csv",stringsAsFactors = FALSE, na.strings = TRUE)
@@ -88,6 +88,11 @@ datosImp$PetroleoReconst[datosImp$PetroleoReconst=="-"] <- NA
 datosImp$MTBE[datosImp$MTBE=="-"] <- NA
 
 View(datosImp)
+
+
+dataTS<-as.ts(datosImp)
+class(dataTS)
+
 
 
 
