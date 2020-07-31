@@ -30,7 +30,7 @@ plot(decompose(logAirPassengers))
 #Ver el gráfico de la serie
 plot(logAirPassengers)
 
-#Para saber si hay raíces unitarias
+#Para saber si hay ra�ces unitarias
 adfTest(logAirPassengers)
 adfTest(diff(logAirPassengers))
 #Gráfico de autocorrelación
