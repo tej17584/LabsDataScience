@@ -44,6 +44,9 @@ library(tabula)
 library(tabulizer)
 library(dplyr)
 library(stringr)
+library(zoo)
+library(xts)
+library(lubridate)
 ##------------------FIN ZONA LIBRERIAS------------------
 
 
@@ -90,11 +93,10 @@ datosImp$MTBE[datosImp$MTBE=="-"] <- NA
 View(datosImp)
 
 
-dataTS<-as.ts(datosImp)
-class(dataTS)
 
 
-
-
-
-
+TSdata<-ts(datosImp$Diesel, start = c(2001,1), end = c(2020,3),frequency = 12)
+class(TSdata)
+#Saber cuando empieza la serie y cuando termina
+start(TSdata)
+end(TSdata)
