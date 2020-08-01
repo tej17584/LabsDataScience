@@ -70,7 +70,7 @@ setwd("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/
 
 # LEER PDF ON DATOS ------------------------------------------------------------------------------------------------------------------------------------------------------------
 # install.packages("tabulizer")
-pages<-extract_tables("C01-Importaci髇-de-combustibles-VOLUMEN-2020-03.pdf")#datos2020
+pages<-extract_tables("C01-Importaci?n-de-combustibles-VOLUMEN-2020-03.pdf")#datos2020
 datosImp <- do.call(rbind, pages)
 nombresVar<-datosImp[1,]
 datosImp<-as.data.frame(datosImp[2:nrow(datosImp),])
@@ -79,9 +79,73 @@ names(datosImp)<-nombresVar
 
 View(datosImp)
 
-###LIMPIEZA DE LOS DATOS-------------------------------------------------------------------------------------------------------------------------------------------------------
+# LEER CSV ON DATOS ------------------------------------------------------------------------------------------------------------------------------------------------------------
+datosImp<-read.csv("gasolina.csv")
+names(datosImp)[1] <- "Anio"
+names(datosImp)[4] <- "GasAviacion"
+names(datosImp)[5] <- "GasSuperior"
+names(datosImp)[6] <- "GasRegular"
+names(datosImp)[8] <- "rTurboJet"
+names(datosImp)[10] <- "DieselLS"
+names(datosImp)[11] <- "DieselULS"
+names(datosImp)[15] <- "AceitesLub"
+names(datosImp)[16] <- "GrasasLub"
+names(datosImp)[21] <- "PetroleoReconst"
+names(datosImp)[23] <- "Orimulsion"
+names(datosImp)[24] <- "MezclasOleosas"
 
-###Se reemplazan "-" por NAs
+###LIMPIEZA DE LOS DATOS-------------------------------------------------------------------------------------------------------------------------------------------------------
+###Se reemplazan "-" por NAs CSV
+
+datosImp$GasAviacion <- gsub("-", "NA", datosImp$GasAviacion)
+datosImp$rTurboJet <- gsub("-", "NA", datosImp$rTurboJet)
+datosImp$DieselLS <- gsub("-", "NA", datosImp$DieselLS)
+datosImp$DieselULS <- gsub("-", "NA", datosImp$DieselULS)
+datosImp$PetCoke <- gsub("-", "NA", datosImp$PetCoke)
+datosImp$AceitesLub <- gsub("-", "NA", datosImp$AceitesLub)
+datosImp$GrasasLub <- gsub("-", "NA", datosImp$GrasasLub)
+datosImp$Solventes <- gsub("-", "NA", datosImp$Solventes)
+datosImp$Naftas <- gsub("-", "NA", datosImp$Naftas)
+datosImp$Ceras <- gsub("-", "NA", datosImp$Ceras)
+datosImp$Butano <- gsub("-", "NA", datosImp$Butano)
+datosImp$Orimulsion <- gsub("-", "NA", datosImp$Orimulsion)
+datosImp$MezclasOleosas <- gsub("-", "NA", datosImp$MezclasOleosas)
+datosImp$Diesel <- gsub("-", "NA", datosImp$Diesel)
+datosImp$PetroleoReconst <- gsub("-", "NA", datosImp$PetroleoReconst)
+datosImp$Kerosina <- gsub("-", "NA", datosImp$Kerosina)
+datosImp$MTBE <- gsub("-", "NA", datosImp$MTBE)
+datosImp$Asfalto <- gsub("-", "NA", datosImp$Asfalto)
+
+###Se cambia a tipo de variable numerico CSV
+datosImp$GLP <- as.numeric(datosImp$GLP)
+datosImp$GasAviacion <- as.numeric(datosImp$GasAviacion)
+datosImp$GasSuperior <- as.numeric(datosImp$GasSuperior)
+datosImp$GasRegular <- as.numeric(datosImp$GasRegular)
+datosImp$Kerosina <- as.numeric(datosImp$Kerosina)
+datosImp$rTurboJet <- as.numeric(datosImp$rTurboJet)
+datosImp$Diesel <- as.numeric(datosImp$Diesel)
+datosImp$DieselLS <- as.numeric(datosImp$DieselLS)
+datosImp$DieselULS <- as.numeric(datosImp$DieselULS)
+datosImp$Bunker <- as.numeric(datosImp$Bunker)
+datosImp$Asfalto <- as.numeric(datosImp$Asfalto)
+datosImp$PetCoke <- as.numeric(datosImp$PetCoke)
+datosImp$AceitesLub <- as.numeric(datosImp$AceitesLub)
+datosImp$GrasasLub <- as.numeric(datosImp$GrasasLub)
+datosImp$Solventes <- as.numeric(datosImp$Solventes)
+datosImp$Naftas <- as.numeric(datosImp$Naftas)
+datosImp$Ceras <- as.numeric(datosImp$Ceras)
+datosImp$Butano <- as.numeric(datosImp$Butano)
+datosImp$PetroleoReconst <- as.numeric(datosImp$PetroleoReconst)
+datosImp$MTBE <- as.numeric(datosImp$MTBE)
+datosImp$Orimulsion <- as.numeric(datosImp$Orimulsion)
+datosImp$MezclasOleosas <- as.numeric(datosImp$MezclasOleosas)
+datosImp$Total <- as.numeric(datosImp$Total)
+
+
+View(datosImp)
+
+
+###Se reemplazan "-" por NAs PDF
 datosImp$GasAviacion[datosImp$GasAviacion=="-"] <- NA
 datosImp$rTurboJet[datosImp$rTurboJet=="-"] <- NA
 datosImp$DieselLS[datosImp$DieselLS=="-"] <- NA
@@ -100,6 +164,8 @@ datosImp$PetroleoReconst[datosImp$PetroleoReconst=="-"] <- NA
 datosImp$Kerosina[datosImp$Kerosina=="-"] <- NA
 datosImp$MTBE[datosImp$MTBE=="-"] <- NA
 datosImp$Asfalto[datosImp$Asfalto=="-"] <- NA
+
+View(datosImp)
 
 ### SE CUENTAN NAs
 sum(is.na(datosImp$Anio))
@@ -154,6 +220,32 @@ View(DieselFull)
 
 ###FIN LIMPIEZA-------------------------------------------------------------------------------------------------------------------------------------------------------
 
+#Histogramas
+hist(datosImp$Anio)
+hist(datosImp$Mes)
+hist(datosImp$GLP)
+hist(datosImp$GasAviacion)
+hist(datosImp$GasSuperior)
+hist(datosImp$GasRegular)
+hist(datosImp$Kerosina)
+hist(datosImp$rTurboJet)
+hist(datosImp$Diesel)
+hist(datosImp$DieselLS)
+hist(datosImp$DieselULS)
+hist(datosImp$Bunker)
+hist(datosImp$Asfalto)
+hist(datosImp$PetCoke)
+hist(datosImp$AceitesLub)
+hist(datosImp$GrasasLub)
+hist(datosImp$Solventes)
+hist(datosImp$Naftas)
+hist(datosImp$Ceras)
+hist(datosImp$Butano)
+hist(datosImp$PetroleoReconst)
+hist(datosImp$MTBE)
+hist(datosImp$Orimulsion)
+hist(datosImp$MezclasOleosas)
+hist(datosImp$Total)
 
 #Para usarse en el analisis de series de tiempo
 View(DieselFull$Diesel2)
@@ -181,7 +273,7 @@ dec.TSdata<-decompose(TSdata)
 plot(dec.TSdata)
 
 
-#Aplicaremos una transformaci贸n logar胻mica
+#Aplicaremos una transformaci贸n logar?tmica
 logTsData <- log(TSdata)
 plot(decompose(logTsData))
 
@@ -243,7 +335,7 @@ dec.TSdata2<-decompose(TSdata2)
 plot(dec.TSdata2)
 
 
-#Aplicaremos una transformaci贸n logar胻mica
+#Aplicaremos una transformaci贸n logar?tmica
 logTsData2 <- log(TSdata2)
 plot(decompose(logTsData2))
 
@@ -305,7 +397,7 @@ dec.TSdata3<-decompose(TSdata3)
 plot(dec.TSdata3)
 
 
-#Aplicaremos una transformaci贸n logar胻mica
+#Aplicaremos una transformaci贸n logar?tmica
 logTSdata3 <- log(TSdata3)
 plot(decompose(logTSdata3))
 
