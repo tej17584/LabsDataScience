@@ -15,13 +15,10 @@ accessToken <-	"409713602-aBMMJOsk0Vc1zWCOUSyBPz56nnboWjHLYsyKNeM9"
 accessTokenSecret <-	"XK3jfmZjB8QOGAoTMndpZLs3HFvjIhtmi02gAYCf44sUH"
 
 setup_twitter_oauth(consumerKey,consumerSecret,accessToken,accessTokenSecret)
-tweets<-searchTwitteR("traficogt",n=150,lang = "es")
+tweets<-searchTwitteR("@totisama",n=150,lang = "es")
 tweetdf<-twListToDF(tweets)
 dif_UTC_gt<-6*60*60
 tweetdf$created2<-tweetdf$created-dif_UTC_gt
-write.csv(tweetdf,"tweets_aux.csv")
+write.csv(tweetdf,"tweets.csv", fileEncoding = "UTF-8")
 
-#getFollowers
-user<-getUser("NuestroDiario")
-location(user)
-followers<-user$getFollowers()
+data <- read.csv("tweets.csv", fileEncoding = "UTF-8")
