@@ -8,11 +8,11 @@ library(RCurl)
 library(wordcloud)
 library(tm)
 
-consumerKey<-"consumerKey"
-consumerSecret<-"consumerSecret"
+consumerKey<-"K8x1yVtCpHvMnMzVhR46yuu19"
+consumerSecret<-"dYhw54JKCEKEhewHWSGPvJ4YxRokT3Ov1bfVmUbf87wnfXSPmc"
 
-accessToken <-	"accessToken"
-accessTokenSecret <-	"accessTokenSecret"
+accessToken <-	"409713602-aBMMJOsk0Vc1zWCOUSyBPz56nnboWjHLYsyKNeM9"
+accessTokenSecret <-	"XK3jfmZjB8QOGAoTMndpZLs3HFvjIhtmi02gAYCf44sUH"
 
 setup_twitter_oauth(consumerKey,consumerSecret,accessToken,accessTokenSecret)
 tweets<-searchTwitteR("traficogt",n=150,lang = "es")
