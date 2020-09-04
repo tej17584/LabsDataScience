@@ -78,9 +78,9 @@ data$text <- gsub("(ó)|(Ó)", "o", data$text)
 data$text <- gsub("(ú)|(Ú)", "u", data$text)
 
 #Quitar numeros
-data$text <- gsub('[0-9]+', '', x)
+data$text <- gsub('[0-9]+', '', data$text)
 
-# Convertir a mayusculas
+# Convertir a minusculas
 data$text <-tolower(data$text)
 View(data)
 
@@ -122,12 +122,17 @@ plot_intro(data)
 
 #Histogramas de las variables cuantitativas_______________________________________
 plot_histogram(data)
-favorites <- (data$favoriteCount >= 400) #esto volatelo, andaba intentando D:
+###Ver tweets que tengas la mayor cantidad de favoritos
+favorites <- subset(data, data$favoriteCount >= 10)
 sum(favorites)
+View(favorites)
+
+###Ver tweets que tengas la mayor cantidad de retweets
+retweets <- subset(data, data$retweetCount >= 25)
+sum(retweets)
+View(retweets)
+
 View(data)
-
-###aqui toti
-
 
 head(data$text)
 intLineCount <- length(data$text)
