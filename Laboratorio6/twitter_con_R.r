@@ -122,9 +122,12 @@ plot_intro(data)
 
 #Histogramas de las variables cuantitativas_______________________________________
 plot_histogram(data)
-favorites <- (data$favoriteCount >= 400)
+favorites <- (data$favoriteCount >= 400) #esto volatelo, andaba intentando D:
 sum(favorites)
 View(data)
+
+###aqui toti
+
 
 head(data$text)
 intLineCount <- length(data$text)
