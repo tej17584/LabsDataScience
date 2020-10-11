@@ -48,15 +48,8 @@ library(ggthemes)
 getwd()
 setwd("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8")
 
-DB2016 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2016INE.sav", to.data.frame=TRUE)
-DB2017 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2017INE.sav", to.data.frame=TRUE)
-DB2018 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2018INE.sav", to.data.frame=TRUE)
-DB2019 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2019INE.sav", to.data.frame=TRUE)
 
-View(DB2016)
-View(DB2017)
-View(DB2018)
-View(DB2019)
+######_____________________DATOS DE LA SAT_________________________
 
 ##2016
 data012016 <- read.delim("dataSAT2016/web_imp_08012016.txt", sep = "|",header=TRUE,row.names = NULL)
@@ -176,7 +169,6 @@ dataSat <- rbind(dataSat2016,
                  dataSat2017,
                  dataSat2018,
                  dataSat2019)
-
 View(dataSat)
 
 names(dataSat)[names(dataSat) == "row.names"] <- "Pais.de.Proveniencia_"
@@ -196,64 +188,52 @@ names(dataSat)[names(dataSat) == "Asientos"] <- "Puertas_"
 names(dataSat)[names(dataSat) == "Puertas"] <- "Tonelaje_"
 names(dataSat)[names(dataSat) == "Tonelaje"] <- "Valor.CIF_"
 names(dataSat)[names(dataSat) == "Valor.CIF"] <- "Impuesto_"
-names(dataSat)[names(dataSat) == "Impuesto"] <- NULL
 
 View(dataSat)
+
+
+##### datos del ine___________________________________________________________
+DB2016 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2016INE.sav", to.data.frame=TRUE)
+DB2017 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2017INE.sav", to.data.frame=TRUE)
+DB2018 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2018INE.sav", to.data.frame=TRUE)
+DB2019 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2019INE.sav", to.data.frame=TRUE)
+
+View(DB2016)
+View(DB2017)
+View(DB2018)
+View(DB2019)
+
+##________________________________ANALISIS EXPLORATORIO_______________________________________##
+## Hacemos un chequeo en general de los datos de la SAT
 str(dataSat)
 
-## Hacemos un chequeo de la tabla en general
 glimpse(dataSat)
 str(dataSat)
 head(dataSat)
 
+#Filtramos solo para motos
+data_motos <- dataSat[dataSat$Tipo.de.Vehiculo_ == 'MOTO',]
+#Elimnamos la columna impuesto que tiene nulls
+data_motos_ <- data_motos[,c(0:16,17,19)] 
 
 
+View(data_motos_)
+str(data_motos_)
+
+data_motos_$Centimetros.Cubicos_ <- as.numeric(data_motos_$Centimetros.Cubicos_) 
+data_motos_$Asientos_ <- as.numeric(data_motos_$Asientos_) 
+data_motos_$Puertas_ <- as.numeric(data_motos_$Puertas_) 
+data_motos_$Tonelaje_ <- as.numeric(data_motos_$Tonelaje_) 
+data_motos_$Año <- as.numeric(data_motos_$Año)
+data_motos_$Modelo.del.Vehiculo_ <- as.numeric(data_motos_$Modelo.del.Vehiculo_)
+
+## clusters y kmeans
+datos<-data_motos_
+irisCompleto<-data_motos_[complete.cases(data_motos_),] #se eliminan NAs
+km<-kmeans(na.omit(data_motos_[,c(8,13:15,18)]) ,3)
+datos$grupo<-km$cluster
 
 
-
-#Se remueven ceros
-pop <- (data$popularity) 
-pop <- pop[pop != 0]
-pop
-
-# Graficas
-hist(pop, 
-     main="data Popularity",
-     xlab="Popularity",
-     col="darkmagenta",
-     freq=FALSE,
-     breaks=30
-)
-boxplot(pop,
-        main="data Popularity")
-qqnorm(pop,
-       main="data Popularity")
-qqline(pop,
-       main="data Popularity")
-
-ad.test(pop)
-cvm.test(pop)
-lillie.test(pop)
-pearson.test(pop)
-shapiro.test(pop)
-# Estos pasos se repetirian para las otras variables cuantitativas
-
-# Tablas de frecuencias para variables cualitativas
-g <- table(peliculas$genres)
-g <- sort(g, decreasing=TRUE)
-View(g)
-p <- table(peliculas$production_companies)
-p <- sort(p, decreasing=TRUE)
-View(p)
-d <- table(peliculas$director)
-d <- sort(d, decreasing=TRUE)
-View(d)
-r <- table(peliculas$release_date)
-r <- sort(r, decreasing=TRUE)
-View(r)
-ry <- table(peliculas$release_year)
-ry <- sort(ry, decreasing=TRUE)
-View(ry)
 
 
 
