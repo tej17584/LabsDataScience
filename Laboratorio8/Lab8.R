@@ -203,6 +203,7 @@ View(DB2017)
 View(DB2018)
 View(DB2019)
 
+
 ##________________________________ANALISIS EXPLORATORIO_______________________________________##
 ## Hacemos un chequeo en general de los datos de la SAT
 str(dataSat)
