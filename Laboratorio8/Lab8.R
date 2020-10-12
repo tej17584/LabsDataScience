@@ -217,7 +217,6 @@ data_motos <- dataSat[dataSat$Tipo.de.Vehiculo_ == 'MOTO',]
 #Elimnamos la columna impuesto que tiene nulls
 data_motos_ <- data_motos[,c(0:16,17,19)] 
 
-
 View(data_motos_)
 str(data_motos_)
 
