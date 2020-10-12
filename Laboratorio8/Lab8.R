@@ -43,6 +43,22 @@ library(gmodels)
 library(Hmisc)
 library(ggthemes)
 
+## ANALISIS
+library(lattice)
+library(DataExplorer)
+library(grDevices)
+library(factoextra)
+
+library(caret)
+library(rpart)
+library(rpart.plot)
+library(randomForest)
+
+library(ranger)
+library(Metrics)
+library(ROCit)
+library(kableExtra)
+
 
 #######_______________________DIRECTORIOS Y LECTURA DE DATOS__________________#############
 getwd()
@@ -77,7 +93,7 @@ dataSat2016 <- rbind(data012016,
                      data112016,
                      data122016)
 dataSat2016$Año <- "2016"
-View(dataSat2016)
+##View(dataSat2016)
 
 #2017
 data012017 <- read.delim("dataSAT2017/web_imp_08012017.txt", sep = "|",header=TRUE,row.names = NULL)
@@ -105,7 +121,7 @@ dataSat2017 <- rbind(data012017,
                      data112017,
                      data122017)
 dataSat2017$Año <- "2017"
-View(dataSat2017)
+##View(dataSat2017)
 
 #2018
 data012018 <- read.delim("dataSAT2018/web_imp_08012018.txt", sep = "|",header=TRUE,row.names = NULL)
@@ -133,7 +149,7 @@ dataSat2018 <- rbind(data012018,
                      data112018,
                      data122018)
 dataSat2018$Año <- "2018"
-View(dataSat2018)
+##View(dataSat2018)
 
 #2019
 data012019 <- read.delim("dataSAT2019/web_imp_08012019.txt", sep = "|",header=TRUE,row.names = NULL)
@@ -161,7 +177,7 @@ dataSat2019 <- rbind(data012019,
                      data112019,
                      data122019)
 dataSat2019$Año <- "2019"
-View(dataSat2019)
+##View(dataSat2019)
 
 ### Unimos la data y nombramos bien las columnas por un problema de **row.names**
 
@@ -169,7 +185,7 @@ dataSat <- rbind(dataSat2016,
                  dataSat2017,
                  dataSat2018,
                  dataSat2019)
-View(dataSat)
+#View(dataSat)
 
 names(dataSat)[names(dataSat) == "row.names"] <- "Pais.de.Proveniencia_"
 names(dataSat)[names(dataSat) == "Pais.de.Proveniencia"] <- "Aduana.de.Ingreso_"
@@ -188,8 +204,8 @@ names(dataSat)[names(dataSat) == "Asientos"] <- "Puertas_"
 names(dataSat)[names(dataSat) == "Puertas"] <- "Tonelaje_"
 names(dataSat)[names(dataSat) == "Tonelaje"] <- "Valor.CIF_"
 names(dataSat)[names(dataSat) == "Valor.CIF"] <- "Impuesto_"
-
-View(dataSat)
+str(dataSat)
+#View(dataSat)
 
 
 ##### datos del ine___________________________________________________________
@@ -198,27 +214,50 @@ DB2017 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/
 DB2018 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2018INE.sav", to.data.frame=TRUE)
 DB2019 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2019INE.sav", to.data.frame=TRUE)
 
-View(DB2016)
-View(DB2017)
-View(DB2018)
-View(DB2019)
+#View(DB2016)
+#View(DB2017)
+#View(DB2018)
+#View(DB2019)
 
 
 ##________________________________ANALISIS EXPLORATORIO_______________________________________##
 ## Hacemos un chequeo en general de los datos de la SAT
 str(dataSat)
 
-glimpse(dataSat)
-str(dataSat)
-head(dataSat)
-
 #Filtramos solo para motos
 data_motos <- dataSat[dataSat$Tipo.de.Vehiculo_ == 'MOTO',]
 #Elimnamos la columna impuesto que tiene nulls
-data_motos_ <- data_motos[,c(0:16,17,19)] 
+data_motos_ <- data_motos[,c(0:3,5:11,16,17,19)] 
 
-View(data_motos_)
+
+glimpse(data_motos_)
 str(data_motos_)
+head(data_motos_)
+
+
+# Tablas de frecuencias para variables cualitativas
+pais <- table(data_motos_$Pais.de.Proveniencia_)
+pais <- sort(pais, decreasing=TRUE)
+aduana <- table(data_motos_$Aduana.de.Ingreso_)
+aduana <- sort(aduana, decreasing=TRUE)
+modelo <- table(data_motos_$Modelo.del.Vehiculo_)
+modelo <- sort(modelo, decreasing=TRUE)
+marca <- table(data_motos_$Marca_)
+marca <- sort(marca, decreasing=TRUE)
+linea <- table(data_motos_$Linea_)
+linea <- sort(linea, decreasing=TRUE)
+distint <- table(data_motos_$Distintivo_)
+distint <- sort(distint, decreasing=TRUE)
+tipoimp <- table(data_motos_$Tipo.de.Importador_)
+tipoimp <- sort(tipoimp, decreasing=TRUE)
+
+View(pais)
+View(aduana)
+View(modelo)
+View(marca)
+View(linea)
+View(distint)
+View(tipoimp)
 
 data_motos_$Centimetros.Cubicos_ <- as.numeric(data_motos_$Centimetros.Cubicos_) 
 data_motos_$Asientos_ <- as.numeric(data_motos_$Asientos_) 
@@ -227,11 +266,81 @@ data_motos_$Tonelaje_ <- as.numeric(data_motos_$Tonelaje_)
 data_motos_$Año <- as.numeric(data_motos_$Año)
 data_motos_$Modelo.del.Vehiculo_ <- as.numeric(data_motos_$Modelo.del.Vehiculo_)
 
-## clusters y kmeans
-datos<-data_motos_
-irisCompleto<-data_motos_[complete.cases(data_motos_),] #se eliminan NAs
-km<-kmeans(na.omit(data_motos_[,c(8,13:15,18)]) ,3)
-datos$grupo<-km$cluster
+summary(data_motos_)
+plot_intro(data_motos_)
+
+
+#####FRECUENCIAS
+#Conteo
+table(data_motos_$Marca_)
+#data_motos_ <- data_motos_[data_motos_$Tipo.de.Vehiculo_ == 'MOTO',]
+View(data_motos_)
+
+####PROPORCIONES
+# proporiciones en frecuencia de las marcas
+prop.table(table(data_motos_$Marca_))
+#Percentage distribution 
+prop.table(table(data_motos_$Marca_, data_motos_$Pais.de.Proveniencia_))
+
+######################### variables categoricas y numericas #################################
+str(data_motos_)
+cat_vars <- names(data_motos_)[which(sapply(data_motos_, is.character))]
+numeric_vars <- names(data_motos_)[which(sapply(data_motos_, is.numeric))]
+
+
+####Convert character to factors###############3
+library(data.table)
+setDT(data_motos_)[,(cat_vars) := lapply(.SD, as.factor), .SDcols = cat_vars]
+
+data_motos_.cat <- data_motos_[,.SD, .SDcols = cat_vars]
+data_motos_.cont <- data_motos_[,.SD,.SDcols = numeric_vars]
+
+View(data_motos_.cont)
+View(data_motos_.cat)
+
+##############Eliminar datos atipicos
+impute_outliers <- function(x, removeNA = TRUE){
+  quantiles <- quantile(x, c(0.05, 0.95), na.rm = removeNA)
+  x[x<quantiles[1]] <- mean(x, na.rm = removeNA)
+  x[x>quantiles[2]] <- median(x, na.rm = removeNA)
+  x
+}
+
+cm_cubicos <- impute_outliers(data_motos_$Centimetros.Cubicos_)
+v_cif <- impute_outliers(data_motos_$Valor.CIF_)
+v_impuesto <- impute_outliers(data_motos_$Impuesto_)
+
+boxplot(cm_cubicos, col = "blue")
+hist(cm_cubicos, col = "blue")
+boxplot(v_cif, col = "green")
+hist(v_cif, col = "green")
+boxplot(v_impuesto, col = "red")
+hist(v_impuesto, col = "red")
+
+with(data_motos_, plot(x=Centimetros.Cubicos_, y=Impuesto_))
+with(data_motos_, plot(x=Centimetros.Cubicos_, y=Valor.CIF_))
+with(data_motos_, plot(x=Impuesto_, y=Valor.CIF_))
+
+
+# Convertir la variable numerica "pasos" en categorica
+# para ello definimos los puntos de corte
+breakPoints <- c(0, 150, 500, Inf)
+categories <- c("Pequeño", "Mediano", "Grande")
+
+# y cortamos la variable número de pasos segun esta categorizacion
+data_motos_$Centimetros.Cubicos_.F <- cut(data_motos_$Centimetros.Cubicos_, breaks = breakPoints, labels = categories)
+
+summary(data_motos_$Centimetros.Cubicos_)
+
+ggplot(data_motos_,aes(x="",y=Centimetros.Cubicos_, fill=Centimetros.Cubicos_.F))+
+  geom_bar(stat = "identity",color="white")+
+  coord_polar(theta="y")
+
+
+
+
+
+
 
 
 
