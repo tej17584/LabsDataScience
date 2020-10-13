@@ -214,13 +214,21 @@ DB2017 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/
 DB2018 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2018INE.sav", to.data.frame=TRUE)
 DB2019 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2019INE.sav", to.data.frame=TRUE)
 
-#View(DB2016)
-#View(DB2017)
-#View(DB2018)
-#View(DB2019)
+View(DB2016)
+View(DB2017)
+View(DB2018)
+View(DB2019)
+
+data_ine <- rbind( DB2017,
+                   DB2018,
+                   DB2019
+                   )
 
 
 ##________________________________ANALISIS EXPLORATORIO_______________________________________##
+
+###################################   S     A      T   #########################################
+
 ## Hacemos un chequeo en general de los datos de la SAT
 str(dataSat)
 
@@ -259,6 +267,8 @@ View(linea)
 View(distint)
 View(tipoimp)
 
+
+### variables char a numerico
 data_motos_$Centimetros.Cubicos_ <- as.numeric(data_motos_$Centimetros.Cubicos_) 
 data_motos_$Asientos_ <- as.numeric(data_motos_$Asientos_) 
 data_motos_$Puertas_ <- as.numeric(data_motos_$Puertas_) 
@@ -298,7 +308,7 @@ data_motos_.cont <- data_motos_[,.SD,.SDcols = numeric_vars]
 View(data_motos_.cont)
 View(data_motos_.cat)
 
-##############Eliminar datos atipicos
+##############Eliminar datos atipicos_________________________________________________-
 impute_outliers <- function(x, removeNA = TRUE){
   quantiles <- quantile(x, c(0.05, 0.95), na.rm = removeNA)
   x[x<quantiles[1]] <- mean(x, na.rm = removeNA)
@@ -324,28 +334,50 @@ with(data_motos_, plot(x=Impuesto_, y=Valor.CIF_))
 
 # Convertir la variable numerica "pasos" en categorica
 # para ello definimos los puntos de corte
-breakPoints <- c(0, 150, 500, Inf)
+breakPoints <- c(0, 149, 500, Inf)
 categories <- c("Pequeño", "Mediano", "Grande")
 
 # y cortamos la variable número de pasos segun esta categorizacion
 data_motos_$Centimetros.Cubicos_.F <- cut(data_motos_$Centimetros.Cubicos_, breaks = breakPoints, labels = categories)
 
 summary(data_motos_$Centimetros.Cubicos_)
+View(data_motos_)
 
-ggplot(data_motos_,aes(x="",y=Centimetros.Cubicos_, fill=Centimetros.Cubicos_.F))+
-  geom_bar(stat = "identity",color="white")+
-  coord_polar(theta="y")
+#intento de de grafica de pie
+#ggplot(data_motos_,aes(x="",y=Centimetros.Cubicos_, fill=Centimetros.Cubicos_.F))+
+#geom_bar(stat = "identity",color="white")+
+#  coord_polar(theta="y")
+# se hara mejor en excel de acuerdo a infografia
 
-
-
-
-
-
-
-
-
+library(openxlsx)
+excel_motos_sat <- write.xlsx(data_motos_,".xlsx")
+saveWorkbook(excel_motos_sat, file = "motos_sat.xlsx", overwrite = TRUE)
 
 
+###################################   I      N       E   #########################################
+data_ine <- rbind( DB2017,
+                   DB2018,
+                   DB2019
+)
+View(data_ine)
 
+glimpse(data_ine)
+str(data_ine)
+head(data_ine)
+
+usefull_vars <- data_ine[,c(3,7,8,10,12,13,17,19,20,21)] 
+View(usefull_vars)
+str(usefull_vars)
+head(usefull_vars)
+
+data_motos_ine <- usefull_vars[usefull_vars$tipo_veh == 'Motocicleta',]
+View(data_motos_ine)
+
+edades_motos <- data_motos_ine$edad_per
+edades_motos[edades_motos == 'Ignorada'] <- NA
+edades_motos <- na.omit(edades_motos)
+View(edades_motos)
+
+hist(edades_motos)
 
 
