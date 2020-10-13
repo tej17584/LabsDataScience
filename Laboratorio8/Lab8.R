@@ -359,25 +359,44 @@ data_ine <- rbind( DB2017,
                    DB2018,
                    DB2019
 )
-View(data_ine)
+#View(data_ine)
 
 glimpse(data_ine)
 str(data_ine)
 head(data_ine)
 
 usefull_vars <- data_ine[,c(3,7,8,10,12,13,17,19,20,21)] 
-View(usefull_vars)
+#View(usefull_vars)
 str(usefull_vars)
 head(usefull_vars)
 
 data_motos_ine <- usefull_vars[usefull_vars$tipo_veh == 'Motocicleta',]
 View(data_motos_ine)
 
+table(data_motos_ine$sexo_per)
+table(data_motos_ine$edad_per)
+table(data_motos_ine$estado_con)
+table(data_motos_ine$marca_veh)
+table(data_motos_ine$color_veh)
+
+
+
 edades_motos <- data_motos_ine$edad_per
 edades_motos[edades_motos == 'Ignorada'] <- NA
 edades_motos <- na.omit(edades_motos)
-View(edades_motos)
 
-hist(edades_motos)
+sexo_motos <- data_motos_ine$sexo_per
+sexo_motos[sexo_motos == 'Ignorado'] <- NA
+sexo_motos <- na.omit(sexo_motos)
+
+generoEstado <- table(sexo_motos,data_motos_ine$estado_con)
+plot(generoEstado, col = c("red", "blue"), main = "genero vs. estado")
+
+chisq.test(generoEstado)
+
+library(openxlsx)
+excel_motos_ine <- write.xlsx(data_motos_ine,".xlsx")
+saveWorkbook(excel_motos_ine, file = "motos_ine.xlsx", overwrite = TRUE)
+
 
 
