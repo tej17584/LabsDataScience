@@ -65,7 +65,11 @@ getwd()
 setwd("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8")
 
 
-######_____________________DATOS DE LA SAT_________________________
+
+
+
+
+###################################   S     A      T   #########################################
 
 ##2016
 data012016 <- read.delim("dataSAT2016/web_imp_08012016.txt", sep = "|",header=TRUE,row.names = NULL)
@@ -208,26 +212,7 @@ str(dataSat)
 #View(dataSat)
 
 
-##### datos del ine___________________________________________________________
-DB2016 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2016INE.sav", to.data.frame=TRUE)
-DB2017 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2017INE.sav", to.data.frame=TRUE)
-DB2018 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2018INE.sav", to.data.frame=TRUE)
-DB2019 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2019INE.sav", to.data.frame=TRUE)
-
-View(DB2016)
-View(DB2017)
-View(DB2018)
-View(DB2019)
-
-data_ine <- rbind( DB2017,
-                   DB2018,
-                   DB2019
-                   )
-
-
 ##________________________________ANALISIS EXPLORATORIO_______________________________________##
-
-###################################   S     A      T   #########################################
 
 ## Hacemos un chequeo en general de los datos de la SAT
 str(dataSat)
@@ -354,18 +339,355 @@ excel_motos_sat <- write.xlsx(data_motos_,".xlsx")
 saveWorkbook(excel_motos_sat, file = "motos_sat.xlsx", overwrite = TRUE)
 
 
+
+
+
+
+###########################################################################################
+
+
+
+
+
 ###################################   I      N       E   #########################################
-data_ine <- rbind( DB2017,
-                   DB2018,
-                   DB2019
-)
+##### datos del ine___________________________________________________________
+DB2014 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2014INE.sav", to.data.frame=TRUE)
+DB2015 = read.csv("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2015INE.csv",stringsAsFactors = FALSE, na.strings = TRUE)
+DB2016 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2016INE.sav", to.data.frame=TRUE)
+DB2017 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2017INE.sav", to.data.frame=TRUE)
+DB2018 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2018INE.sav", to.data.frame=TRUE)
+DB2019 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2019INE.sav", to.data.frame=TRUE)
+
+#View(DB2014)
+#View(DB2015)
+#View(DB2016)
+#View(DB2017)
+#View(DB2018)
+#View(DB2019)
+
+
+#limpiamos 2018
+DB2018$día_ocu <- NULL
+DB2018$mupio_ocu <- NULL
+DB2018$zona_ocu <- NULL
+DB2018$marca_veh <- NULL
+DB2018$modelo_veh <- NULL
+DB2018$g_modelo_veh <- NULL
+DB2018$tipo_eve <- NULL
+DB2018$núm_corre <- NULL
+names(DB2018)[names(DB2018) == "año_ocu"] <- "anio_ocu"
+names(DB2018)[names(DB2018) == "día_sem_ocu"] <- "dia_sem_ocu"
+DB2018$depto_ocu <- as.factor(ifelse(DB2018$depto_ocu=="Petén", "Peten", as.character(DB2018$depto_ocu)))
+DB2018$depto_ocu <- as.factor(ifelse(DB2018$depto_ocu=="Quiché", "Quiche", as.character(DB2018$depto_ocu)))
+
+#Limpiamos el 2014 a Estándares de 2018 Variables que si dejaremos
+DB2014$día_ocu <- NULL
+DB2014$mupio_ocu <- NULL
+DB2014$zona_ocu <- NULL
+DB2014$marca_veh <- NULL
+DB2014$modelo_veh <- NULL
+DB2014$g_edad <- NULL
+DB2014$año_ocu <- 2014
+DB2014$hora_ocu <- as.factor(DB2014$hora_ocu)
+DB2014$corre_base <- NULL
+DB2014$área_geo_ocu <- NULL
+DB2014$edad_con <- NULL
+DB2014$mayor_menor <- NULL
+DB2014$estado_con<- NULL
+DB2014$sexo_con <- NULL
+DB2014$num_corre <- NULL
+DB2014$tipo_eve <- NULL
+DB2014$g_hora_5 <- as.factor(ifelse(DB2014$g_hora ==  "00:00 a 05:59" | DB2014$g_hora ==  "06:00 a 11:59" , "Mañana", ifelse(
+  DB2014$g_hora ==  "12:00 a 17:59", "Tarde", "Noche"
+)))
+DB2014$mes_ocu <- as.factor(ifelse(DB2014$mes_ocu=="Septiemre", "Septiembre", as.character(DB2014$mes_ocu)))
+DB2014$num_correlativo <- NULL
+DB2014$depto_ocu <- as.factor(ifelse(DB2014$depto_ocu=="Santa rosa", "Santa Rosa", as.character(DB2014$depto_ocu)))
+DB2014$tipo_veh <- as.factor(ifelse(DB2014$tipo_veh=="Microbus", "Microbús", as.character(DB2014$tipo_veh)))
+
+#limpiamos tildes
+names(DB2014)[names(DB2014) == "día_sem_ocu"] <- "dia_sem_ocu"
+names(DB2014)[names(DB2014) == "año_ocu"] <- "anio_ocu"
+#Limpiamos 2015
+DB2015$núm_corre <- NULL
+DB2015$día_ocu <- NULL
+DB2015$mupio_ocu <- NULL
+DB2015$zona_ocu <- NULL
+DB2015$marca_veh <- NULL
+DB2015$modelo_veh <- NULL
+DB2015$g_modelo_veh <- NULL
+DB2015$tipo_eve <- NULL
+DB2015$área_geo_ocu <- NULL
+DB2015$sexo_per <- NULL
+DB2015$edad_per <- NULL
+DB2015$estado_con <- NULL
+DB2015$edad_quinquenales<- NULL
+DB2015$g_edad_60ymás<- NULL
+DB2015$g_edad_80ymás<- NULL
+DB2015$mayor_menor<- NULL
+names(DB2015)[names(DB2015) == "año_ocu"] <- "anio_ocu"
+names(DB2015)[names(DB2015) == "día_sem_ocu"] <- "dia_sem_ocu"
+#limpiamos a profundidadd 015
+DB2015$anio_ocu <- as.numeric(DB2015$anio_ocu) 
+DB2015$hora_ocu <- as.factor(DB2015$hora_ocu)
+#mes
+DB2015$mes_ocu <- as.factor(ifelse(DB2015$mes_ocu ==  1 , "Enero", ifelse(
+  DB2015$mes_ocu ==  2, "Febrero", ifelse(
+    DB2015$mes_ocu ==  3, "Marzo",   ifelse(  
+      DB2015$mes_ocu ==  4, "Abril",   ifelse(
+        DB2015$mes_ocu ==  5, "Mayo",    ifelse(
+          DB2015$mes_ocu ==  6, "Junio",   ifelse(
+            DB2015$mes_ocu ==  7, "Julio",   ifelse(
+              DB2015$mes_ocu ==  8, "Agosto",  ifelse(
+                DB2015$mes_ocu ==  9, "Septiembre",    ifelse(
+                  DB2015$mes_ocu ==  10, "Octubre",    ifelse(
+                    DB2015$mes_ocu ==  11, "Noviembre",  "Diciembre"
+                  ))))))))))))
+
+#día de la semana
+DB2015$dia_sem_ocu <- as.factor(ifelse(DB2015$dia_sem_ocu ==  1 , "Lunes", ifelse(
+  DB2015$dia_sem_ocu ==  2, "Martes", ifelse(
+    DB2015$dia_sem_ocu ==  3, "Miércoles",   ifelse(  
+      DB2015$dia_sem_ocu ==  4, "Jueves",   ifelse(
+        DB2015$dia_sem_ocu ==  5, "Viernes",    ifelse(
+          DB2015$dia_sem_ocu ==  6, "Sábado",  "Domingo"
+        )))))))
+#hora
+DB2015$g_hora <- as.factor(ifelse(DB2015$g_hora ==  1, "00:00 a 05:59", ifelse(
+  DB2015$g_hora ==  2, "06:00 a 11:59", ifelse(
+    DB2015$g_hora ==  3, "12:00 a 17:59", "18:00 a 23:59"
+  ))))
+#clasificacion extra de horas
+DB2015$g_hora_5 <- as.factor(ifelse(DB2015$g_hora ==  "00:00 a 05:59" , "Mañana", ifelse(
+  DB2015$g_hora ==  "06:00 a 11:59", "Mañana", ifelse(
+    DB2015$g_hora ==  "12:00 a 17:59", "Tarde", "Noche"
+  ))))
+
+#color
+DB2015$color_veh <- as.factor(ifelse(DB2015$color_veh ==  1 , "Rojo", ifelse(
+  DB2015$color_veh ==  2, "Blanco", ifelse(
+    DB2015$color_veh ==  3, "Azul",   ifelse(  
+      DB2015$color_veh ==  4, "Gris",   ifelse(
+        DB2015$color_veh ==  5, "Negro",  ifelse(
+          DB2015$color_veh ==  6, "Verde",  ifelse(
+            DB2015$color_veh ==  7, "Amarillo",  ifelse(
+              DB2015$color_veh ==  8, "Celeste",  ifelse(
+                DB2015$color_veh ==  9, "Corinto",  ifelse(
+                  DB2015$color_veh ==  10, "Cafe",  ifelse(
+                    DB2015$color_veh ==  11, "Beige",  ifelse(
+                      DB2015$color_veh ==  12, "Turqueza",  ifelse(
+                        DB2015$color_veh ==  13, "Marfil",  ifelse(
+                          DB2015$color_veh ==  14, "Anaranjado",  ifelse(
+                            DB2015$color_veh ==  15, "Aqua",  ifelse(
+                              DB2015$color_veh ==  16, "Morado",  ifelse(
+                                DB2015$color_veh ==  17, "Rosado",  "Ignorado"
+                              ))))))))))))))))))
+
+#vehiculo
+DB2015$tipo_veh<- as.factor(ifelse(DB2015$tipo_veh ==  1 , "Automóvil", ifelse(
+  DB2015$tipo_veh ==  2, "Camioneta", ifelse(
+    DB2015$tipo_veh ==  3, "Pick up",   ifelse(  
+      DB2015$tipo_veh ==  4, "Motocicleta",   ifelse(
+        DB2015$tipo_veh ==  5, "Camión",  ifelse(
+          DB2015$tipo_veh ==  6, "Cabezal",  ifelse(
+            DB2015$tipo_veh ==  7, "Bus extraurbano",  ifelse(
+              DB2015$tipo_veh ==  8, "Jeep",  ifelse(
+                DB2015$tipo_veh ==  9, "Microbús",  ifelse(
+                  DB2015$tipo_veh ==  10, "Taxi",  ifelse(
+                    DB2015$tipo_veh ==  11, "Panel",  ifelse(
+                      DB2015$tipo_veh ==  12, "Bus urbano",  ifelse(
+                        DB2015$tipo_veh ==  13, "Tractor",  ifelse(
+                          DB2015$tipo_veh ==  14, "Moto taxi",  ifelse(
+                            DB2015$tipo_veh ==  15, "Furgón",  ifelse(
+                              DB2015$tipo_veh ==  16, "Grúa",  ifelse(
+                                DB2015$tipo_veh ==  17, "Bus escolar",  ifelse(
+                                  DB2015$tipo_veh ==  18, "Bicicleta",  "Ignorado"
+                                )))))))))))))))))))
+#limpieza Departamentos
+DB2015$depto_ocu <- as.factor(ifelse(DB2015$depto_ocu ==  1 , "Guatemala", ifelse(
+  DB2015$depto_ocu ==  2, "El Progreso", ifelse(
+    DB2015$depto_ocu ==  3, "Sacatepéquez",   ifelse(  
+      DB2015$depto_ocu ==  4, "Chimaltenango",   ifelse(
+        DB2015$depto_ocu ==  5, "Escuintla",    ifelse(
+          DB2015$depto_ocu ==  6, "Santa Rosa",   ifelse(
+            DB2015$depto_ocu ==  7, "Sololá",   ifelse(
+              DB2015$depto_ocu ==  8, "Totonicapán",  ifelse(
+                DB2015$depto_ocu ==  9, "Quetzaltenango",    ifelse(
+                  DB2015$depto_ocu ==  10, "Suchitepéquez",    ifelse(
+                    DB2015$depto_ocu ==  11, "Retalhuleu",  ifelse( 
+                      DB2015$depto_ocu ==  12, "San Marcos",  ifelse(  
+                        DB2015$depto_ocu ==  13, "Huehuetenango",  ifelse( 
+                          DB2015$depto_ocu ==  14, "Quiche",  ifelse( 
+                            DB2015$depto_ocu ==  15, "Baja Verapaz",  ifelse( 
+                              DB2015$depto_ocu ==  16, "Alta Verapaz",  ifelse(
+                                DB2015$depto_ocu ==  17, "Peten",  ifelse( 
+                                  DB2015$depto_ocu ==  18, "Izabal",  ifelse( 
+                                    DB2015$depto_ocu ==  19, "Zacapa",  ifelse( 
+                                      DB2015$depto_ocu ==  20, "Chiquimula",  ifelse( 
+                                        DB2015$depto_ocu ==  21, "Jalapa", "Jutiapa"
+                                      ))))))))))))))))))))))
+
+#fin limpieza 2015 
+
+#Limpiamos 2016
+DB2016$núm_corre <- NULL
+DB2016$día_ocu <- NULL
+DB2016$mupio_ocu <- NULL
+DB2016$zona_ocu <- NULL
+DB2016$marca_veh <- NULL
+DB2016$modelo_veh <- NULL
+DB2016$g_modelo_veh <- NULL
+DB2016$tipo_eve <- NULL
+DB2016$área_geo_ocu <- NULL
+names(DB2016)[names(DB2016) == "año_ocu"] <- "anio_ocu"
+names(DB2016)[names(DB2016) == "día_sem_ocu"] <- "dia_sem_ocu"
+
+#limpiamos 2017
+DB2017$núm_corre <- NULL
+DB2017$día_ocu <- NULL
+DB2017$mupio_ocu <- NULL
+DB2017$zona_ocu <- NULL
+DB2017$marca_veh <- NULL
+DB2017$modelo_veh <- NULL
+DB2017$g_modelo_veh <- NULL
+DB2017$tipo_eve <- NULL
+DB2017$área_geo_ocu <- NULL
+names(DB2017)[names(DB2017) == "año_ocu"] <- "anio_ocu"
+names(DB2017)[names(DB2017) == "día_sem_ocu"] <- "dia_sem_ocu"
+
+
+View(DB2014)
+View(DB2015)
+View(DB2016)
+View(DB2017)
+View(DB2018)
+View(DB2019)
+
+#UNIMOS TODA LA DATA
+DBTOTAL <- rbind(DB2014,DB2015 ,DB2016, DB2017)
+#View(DBTOTAL)
+str(DBTOTAL)
+
+
+#################HACER REVISION HASTA ACA Y ARREGLAR NUMERO DE COLUMNAS
+
+
+
+
+DBTOTAL2 <-DBTOTAL
+#día de la semana
+DBTOTAL2$dia_sem_ocu <-as.numeric( ifelse(DBTOTAL2$dia_sem_ocu ==  "Lunes" , 1, ifelse(
+  DBTOTAL2$dia_sem_ocu ==  "Martes", 2, ifelse(
+    DBTOTAL2$dia_sem_ocu ==  "Miércoles", 3,   ifelse(  
+      DBTOTAL2$dia_sem_ocu ==  "Jueves", 4,   ifelse(
+        DBTOTAL2$dia_sem_ocu ==  "Viernes", 5,    ifelse(
+          DBTOTAL2$dia_sem_ocu ==  "Sábado", 6,  7
+        )))))))
+
+#año
+DBTOTAL2$anio_ocu <- as.numeric(DBTOTAL2$anio_ocu)
+
+#g_hora
+DBTOTAL2$g_hora <- as.numeric(ifelse(DBTOTAL2$g_hora ==  "00:00 a 05:59" ,1 , ifelse(
+  DBTOTAL2$g_hora ==  "06:00 a 11:59", 2, ifelse(
+    DBTOTAL2$g_hora ==  "12:00 a 17:59", 3, 4
+  ))))
+
+#mes
+DBTOTAL2$mes_ocu <- as.numeric(ifelse(DBTOTAL2$mes_ocu ==  "Enero" , 1, ifelse(
+  DBTOTAL2$mes_ocu ==  "Febrero", 2, ifelse(
+    DBTOTAL2$mes_ocu ==  "Marzo", 3,   ifelse(  
+      DBTOTAL2$mes_ocu ==  "Abril", 4,   ifelse(
+        DBTOTAL2$mes_ocu ==  "Mayo", 5,    ifelse(
+          DBTOTAL2$mes_ocu ==  "Junio", 6,   ifelse(
+            DBTOTAL2$mes_ocu ==  "Julio", 7,   ifelse(
+              DBTOTAL2$mes_ocu ==  "Agosto", 8,  ifelse(
+                DBTOTAL2$mes_ocu ==  "Septiembre", 9,    ifelse(
+                  DBTOTAL2$mes_ocu ==  "Octubre", 10,    ifelse(
+                    DBTOTAL2$mes_ocu ==  "Noviembre", 11,  12
+                  ))))))))))))
+#Tipo de vehiculo
+DBTOTAL2$tipo_veh<- as.numeric(ifelse(DBTOTAL2$tipo_veh ==  "Automóvil" ,1 , ifelse(
+  DBTOTAL2$tipo_veh == "Camioneta",2,  ifelse(
+    DBTOTAL2$tipo_veh == "Pick up", 3,    ifelse(  
+      DBTOTAL2$tipo_veh ==  "Motocicleta",4,    ifelse(
+        DBTOTAL2$tipo_veh == "Camión",  5,  ifelse(
+          DBTOTAL2$tipo_veh == "Cabezal",  6,   ifelse(
+            DBTOTAL2$tipo_veh ==  "Bus extraurbano", 7,  ifelse(
+              DBTOTAL2$tipo_veh ==  "Jeep", 8,  ifelse(
+                DBTOTAL2$tipo_veh ==  "Microbús", 9,  ifelse(
+                  DBTOTAL2$tipo_veh ==  "Taxi", 10,  ifelse(
+                    DBTOTAL2$tipo_veh == "Panel",  11,  ifelse(
+                      DBTOTAL2$tipo_veh ==  "Bus urbano", 12,  ifelse(
+                        DBTOTAL2$tipo_veh == "Tractor",  13,  ifelse(
+                          DBTOTAL2$tipo_veh ==  "Moto taxi", 14,   ifelse(
+                            DBTOTAL2$tipo_veh == "Furgón",  15,  ifelse(
+                              DBTOTAL2$tipo_veh ==  "Grúa", 16,  ifelse(
+                                DBTOTAL2$tipo_veh == "Bus escolar",  17,  ifelse(
+                                  DBTOTAL2$tipo_veh ==  "Bicicleta", 18,  99
+                                )))))))))))))))))))
+
+DBTOTAL2$hora_ocu <- as.numeric(DBTOTAL$hora_ocu)
+#Departamento 
+DBTOTAL2$depto_ocu <- as.numeric(ifelse(DBTOTAL2$depto_ocu ==  "Guatemala" , 1, ifelse(
+  DBTOTAL2$depto_ocu ==  "El Progreso", 2, ifelse(
+    DBTOTAL2$depto_ocu ==  "Sacatepéquez", 3,   ifelse(  
+      DBTOTAL2$depto_ocu ==  "Chimaltenango", 4,   ifelse(
+        DBTOTAL2$depto_ocu ==  "Escuintla", 5,    ifelse(
+          DBTOTAL2$depto_ocu ==  "Santa Rosa", 6,   ifelse(
+            DBTOTAL2$depto_ocu ==  "Sololá", 7,   ifelse(
+              DBTOTAL2$depto_ocu ==  "Totonicapán", 8,  ifelse(
+                DBTOTAL2$depto_ocu ==  "Quetzaltenango", 9,    ifelse(
+                  DBTOTAL2$depto_ocu ==  "Suchitepéquez", 10,    ifelse(
+                    DBTOTAL2$depto_ocu ==  "Retalhuleu", 11,  ifelse( 
+                      DBTOTAL2$depto_ocu ==  "San Marcos", 12,  ifelse(  
+                        DBTOTAL2$depto_ocu ==  "Huehuetenango", 13,  ifelse( 
+                          DBTOTAL2$depto_ocu ==  "Quiche", 14,  ifelse( 
+                            DBTOTAL2$depto_ocu ==  "Baja Verapaz", 15,  ifelse( 
+                              DBTOTAL2$depto_ocu ==  "Alta Verapaz", 16,  ifelse(
+                                DBTOTAL2$depto_ocu ==  "Peten", 17,  ifelse( 
+                                  DBTOTAL2$depto_ocu ==  "Izabal", 18,  ifelse( 
+                                    DBTOTAL2$depto_ocu ==  "Zacapa", 19,  ifelse( 
+                                      DBTOTAL2$depto_ocu ==  "Chiquimula", 20,  ifelse( 
+                                        DBTOTAL2$depto_ocu ==  "Jalapa", 21, 22
+                                      ))))))))))))))))))))))
+
+#g_hora_5
+#clasificacion extra de horas
+DBTOTAL2$g_hora_5 <- as.numeric(ifelse(DBTOTAL2$g_hora_5 ==  "Mañana" , 1, ifelse(
+  DBTOTAL2$g_hora_5 ==  "Mañana", 2, ifelse(
+    DBTOTAL2$g_hora_5 ==  "Tarde",3, 4
+  ))))
+#color
+DBTOTAL2$color_veh <- as.numeric(ifelse(DBTOTAL2$color_veh ==  "Rojo", 1 , ifelse(
+  DBTOTAL2$color_veh ==  "Blanco", 2,  ifelse(
+    DBTOTAL2$color_veh ==  "Azul", 3,   ifelse(  
+      DBTOTAL2$color_veh ==  "Gris", 4,   ifelse(
+        DBTOTAL2$color_veh ==  "Negro", 5,  ifelse(
+          DBTOTAL2$color_veh ==  "Verde", 6,  ifelse(
+            DBTOTAL2$color_veh ==  "Amarillo", 7,  ifelse(
+              DBTOTAL2$color_veh == "Celeste",  8,  ifelse(
+                DBTOTAL2$color_veh ==  "Corinto", 9,  ifelse(
+                  DBTOTAL2$color_veh ==  "Cafe", 10,  ifelse(
+                    DBTOTAL2$color_veh == "Beige",  11,  ifelse(
+                      DBTOTAL2$color_veh ==  "Turqueza", 12,  ifelse(
+                        DBTOTAL2$color_veh ==  "Marfil", 13,  ifelse(
+                          DBTOTAL2$color_veh ==  "Anaranjado", 14,  ifelse(
+                            DBTOTAL2$color_veh ==  "Aqua", 15,  ifelse(
+                              DBTOTAL2$color_veh == "Morado",  16,  ifelse(
+                                DBTOTAL2$color_veh == "Rosado",  17, 99
+                              ))))))))))))))))))
+
+str(DBTOTAL2)
+
+
 #View(data_ine)
 
-glimpse(data_ine)
-str(data_ine)
-head(data_ine)
+glimpse(DBTOTAL2)
+str(DBTOTAL2)
+head(DBTOTAL2)
 
-usefull_vars <- data_ine[,c(3,7,8,10,12,13,17,19,20,21)] 
+usefull_vars <- DBTOTAL2[,c(3,7,8,10,12,13,17,19,20,21)] 
 #View(usefull_vars)
 str(usefull_vars)
 head(usefull_vars)
@@ -397,6 +719,5 @@ chisq.test(generoEstado)
 library(openxlsx)
 excel_motos_ine <- write.xlsx(data_motos_ine,".xlsx")
 saveWorkbook(excel_motos_ine, file = "motos_ine.xlsx", overwrite = TRUE)
-
 
 
