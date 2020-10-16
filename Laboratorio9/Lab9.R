@@ -408,6 +408,10 @@ DB2014$tipo_veh <- as.factor(ifelse(DB2014$tipo_veh=="Microbus", "Microbús", as.
 #limpiamos tildes
 names(DB2014)[names(DB2014) == "día_sem_ocu"] <- "dia_sem_ocu"
 names(DB2014)[names(DB2014) == "año_ocu"] <- "anio_ocu"
+
+View(DB2014)
+######Fin limpieza 2014
+
 #Limpiamos 2015
 DB2015$núm_corre <- NULL
 DB2015$día_ocu <- NULL
@@ -528,10 +532,11 @@ DB2015$depto_ocu <- as.factor(ifelse(DB2015$depto_ocu ==  1 , "Guatemala", ifels
                                       ))))))))))))))))))))))
 
 #fin limpieza 2015 
+View(DB2015)
 
 #Limpiamos 2016
-DB2016$núm_corre <- NULL
-DB2016$día_ocu <- NULL
+DB2016$num_corre<- NULL
+DB2016$dia_sem_ocu <- NULL
 DB2016$mupio_ocu <- NULL
 DB2016$zona_ocu <- NULL
 DB2016$marca_veh <- NULL
@@ -543,8 +548,8 @@ names(DB2016)[names(DB2016) == "año_ocu"] <- "anio_ocu"
 names(DB2016)[names(DB2016) == "día_sem_ocu"] <- "dia_sem_ocu"
 
 #limpiamos 2017
-DB2017$núm_corre <- NULL
-DB2017$día_ocu <- NULL
+DB2017$num_corre <- NULL
+DB2017$dia_ocu <- NULL
 DB2017$mupio_ocu <- NULL
 DB2017$zona_ocu <- NULL
 DB2017$marca_veh <- NULL
@@ -564,7 +569,7 @@ View(DB2018)
 View(DB2019)
 
 #UNIMOS TODA LA DATA
-DBTOTAL <- rbind(DB2014,DB2015 ,DB2016, DB2017)
+DBTOTAL <- rbind(DB2015 ,DB2016, DB2017,DB2018)
 #View(DBTOTAL)
 str(DBTOTAL)
 
