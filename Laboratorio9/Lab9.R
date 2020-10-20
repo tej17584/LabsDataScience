@@ -2,15 +2,15 @@
 ## Data Science
 ## Alejandro Tejada 17584
 ## Diego Sevilla 17238
-## Rodrigo Samayoa 17xxx
+## Rodrigo Samayoa 17332
 ###################################################
 
 library(cluster) #Para calcular la silueta
 library(e1071)#para cmeans
 library(mclust) #mixtures of gaussians
 library(fpc) #para hacer el plotcluster
-library(NbClust) #Para determinar el número de clusters óptimo
-library(factoextra) #Para hacer gráficos bonitos de clustering
+library(NbClust) #Para determinar el n?mero de clusters ?ptimo
+library(factoextra) #Para hacer gr?ficos bonitos de clustering
 
 #install.packages("klaR")
 #install.packages("cba")
@@ -96,7 +96,7 @@ dataSat2016 <- rbind(data012016,
                      data102016,
                      data112016,
                      data122016)
-dataSat2016$Año <- "2016"
+dataSat2016$A?o <- "2016"
 ##View(dataSat2016)
 
 #2017
@@ -124,7 +124,7 @@ dataSat2017 <- rbind(data012017,
                      data102017,
                      data112017,
                      data122017)
-dataSat2017$Año <- "2017"
+dataSat2017$A?o <- "2017"
 ##View(dataSat2017)
 
 #2018
@@ -152,7 +152,7 @@ dataSat2018 <- rbind(data012018,
                      data102018,
                      data112018,
                      data122018)
-dataSat2018$Año <- "2018"
+dataSat2018$A?o <- "2018"
 ##View(dataSat2018)
 
 #2019
@@ -180,7 +180,7 @@ dataSat2019 <- rbind(data012019,
                      data102019,
                      data112019,
                      data122019)
-dataSat2019$Año <- "2019"
+dataSat2019$A?o <- "2019"
 ##View(dataSat2019)
 
 ### Unimos la data y nombramos bien las columnas por un problema de **row.names**
@@ -258,7 +258,7 @@ data_motos_$Centimetros.Cubicos_ <- as.numeric(data_motos_$Centimetros.Cubicos_)
 data_motos_$Asientos_ <- as.numeric(data_motos_$Asientos_) 
 data_motos_$Puertas_ <- as.numeric(data_motos_$Puertas_) 
 data_motos_$Tonelaje_ <- as.numeric(data_motos_$Tonelaje_) 
-data_motos_$Año <- as.numeric(data_motos_$Año)
+data_motos_$A?o <- as.numeric(data_motos_$A?o)
 data_motos_$Modelo.del.Vehiculo_ <- as.numeric(data_motos_$Modelo.del.Vehiculo_)
 
 summary(data_motos_)
@@ -320,9 +320,9 @@ with(data_motos_, plot(x=Impuesto_, y=Valor.CIF_))
 # Convertir la variable numerica "pasos" en categorica
 # para ello definimos los puntos de corte
 breakPoints <- c(0, 149, 500, Inf)
-categories <- c("Pequeño", "Mediano", "Grande")
+categories <- c("Peque?o", "Mediano", "Grande")
 
-# y cortamos la variable número de pasos segun esta categorizacion
+# y cortamos la variable n?mero de pasos segun esta categorizacion
 data_motos_$Centimetros.Cubicos_.F <- cut(data_motos_$Centimetros.Cubicos_, breaks = breakPoints, labels = categories)
 
 summary(data_motos_$Centimetros.Cubicos_)
@@ -367,70 +367,70 @@ DB2019 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/
 
 
 #limpiamos 2018
-DB2018$día_ocu <- NULL
+DB2018$d?a_ocu <- NULL
 DB2018$mupio_ocu <- NULL
 DB2018$zona_ocu <- NULL
 DB2018$marca_veh <- NULL
 DB2018$modelo_veh <- NULL
 DB2018$g_modelo_veh <- NULL
 DB2018$tipo_eve <- NULL
-DB2018$núm_corre <- NULL
-names(DB2018)[names(DB2018) == "año_ocu"] <- "anio_ocu"
-names(DB2018)[names(DB2018) == "día_sem_ocu"] <- "dia_sem_ocu"
-DB2018$depto_ocu <- as.factor(ifelse(DB2018$depto_ocu=="Petén", "Peten", as.character(DB2018$depto_ocu)))
-DB2018$depto_ocu <- as.factor(ifelse(DB2018$depto_ocu=="Quiché", "Quiche", as.character(DB2018$depto_ocu)))
+DB2018$n?m_corre <- NULL
+names(DB2018)[names(DB2018) == "a?o_ocu"] <- "anio_ocu"
+names(DB2018)[names(DB2018) == "d?a_sem_ocu"] <- "dia_sem_ocu"
+DB2018$depto_ocu <- as.factor(ifelse(DB2018$depto_ocu=="Pet?n", "Peten", as.character(DB2018$depto_ocu)))
+DB2018$depto_ocu <- as.factor(ifelse(DB2018$depto_ocu=="Quich?", "Quiche", as.character(DB2018$depto_ocu)))
 
-#Limpiamos el 2014 a Estándares de 2018 Variables que si dejaremos
-DB2014$día_ocu <- NULL
+#Limpiamos el 2014 a Est?ndares de 2018 Variables que si dejaremos
+DB2014$d?a_ocu <- NULL
 DB2014$mupio_ocu <- NULL
 DB2014$zona_ocu <- NULL
 DB2014$marca_veh <- NULL
 DB2014$modelo_veh <- NULL
 DB2014$g_edad <- NULL
-DB2014$año_ocu <- 2014
+DB2014$a?o_ocu <- 2014
 DB2014$hora_ocu <- as.factor(DB2014$hora_ocu)
 DB2014$corre_base <- NULL
-DB2014$área_geo_ocu <- NULL
+DB2014$?rea_geo_ocu <- NULL
 DB2014$edad_con <- NULL
 DB2014$mayor_menor <- NULL
 DB2014$estado_con<- NULL
 DB2014$sexo_con <- NULL
 DB2014$num_corre <- NULL
 DB2014$tipo_eve <- NULL
-DB2014$g_hora_5 <- as.factor(ifelse(DB2014$g_hora ==  "00:00 a 05:59" | DB2014$g_hora ==  "06:00 a 11:59" , "Mañana", ifelse(
+DB2014$g_hora_5 <- as.factor(ifelse(DB2014$g_hora ==  "00:00 a 05:59" | DB2014$g_hora ==  "06:00 a 11:59" , "Ma?ana", ifelse(
   DB2014$g_hora ==  "12:00 a 17:59", "Tarde", "Noche"
 )))
 DB2014$mes_ocu <- as.factor(ifelse(DB2014$mes_ocu=="Septiemre", "Septiembre", as.character(DB2014$mes_ocu)))
 DB2014$num_correlativo <- NULL
 DB2014$depto_ocu <- as.factor(ifelse(DB2014$depto_ocu=="Santa rosa", "Santa Rosa", as.character(DB2014$depto_ocu)))
-DB2014$tipo_veh <- as.factor(ifelse(DB2014$tipo_veh=="Microbus", "Microbús", as.character(DB2014$tipo_veh)))
+DB2014$tipo_veh <- as.factor(ifelse(DB2014$tipo_veh=="Microbus", "Microb?s", as.character(DB2014$tipo_veh)))
 
 #limpiamos tildes
-names(DB2014)[names(DB2014) == "día_sem_ocu"] <- "dia_sem_ocu"
-names(DB2014)[names(DB2014) == "año_ocu"] <- "anio_ocu"
+names(DB2014)[names(DB2014) == "d?a_sem_ocu"] <- "dia_sem_ocu"
+names(DB2014)[names(DB2014) == "a?o_ocu"] <- "anio_ocu"
 
 View(DB2014)
 ######Fin limpieza 2014
 
 #Limpiamos 2015
-DB2015$núm_corre <- NULL
-DB2015$día_ocu <- NULL
+DB2015$n?m_corre <- NULL
+DB2015$d?a_ocu <- NULL
 DB2015$mupio_ocu <- NULL
 DB2015$zona_ocu <- NULL
 DB2015$marca_veh <- NULL
 DB2015$modelo_veh <- NULL
 DB2015$g_modelo_veh <- NULL
 DB2015$tipo_eve <- NULL
-DB2015$área_geo_ocu <- NULL
+DB2015$?rea_geo_ocu <- NULL
 DB2015$sexo_per <- NULL
 DB2015$edad_per <- NULL
 DB2015$estado_con <- NULL
 DB2015$edad_quinquenales<- NULL
-DB2015$g_edad_60ymás<- NULL
-DB2015$g_edad_80ymás<- NULL
+DB2015$g_edad_60ym?s<- NULL
+DB2015$g_edad_80ym?s<- NULL
 DB2015$mayor_menor<- NULL
-names(DB2015)[names(DB2015) == "año_ocu"] <- "anio_ocu"
-names(DB2015)[names(DB2015) == "día_sem_ocu"] <- "dia_sem_ocu"
+names(DB2015)[names(DB2015) == "a?o_ocu"] <- "anio_ocu"
+names(DB2015)[names(DB2015) == "d?a_sem_ocu"] <- "dia_sem_ocu"
 #limpiamos a profundidadd 015
 DB2015$anio_ocu <- as.numeric(DB2015$anio_ocu) 
 DB2015$hora_ocu <- as.factor(DB2015$hora_ocu)
@@ -448,13 +448,13 @@ DB2015$mes_ocu <- as.factor(ifelse(DB2015$mes_ocu ==  1 , "Enero", ifelse(
                     DB2015$mes_ocu ==  11, "Noviembre",  "Diciembre"
                   ))))))))))))
 
-#día de la semana
+#d?a de la semana
 DB2015$dia_sem_ocu <- as.factor(ifelse(DB2015$dia_sem_ocu ==  1 , "Lunes", ifelse(
   DB2015$dia_sem_ocu ==  2, "Martes", ifelse(
-    DB2015$dia_sem_ocu ==  3, "Miércoles",   ifelse(  
+    DB2015$dia_sem_ocu ==  3, "Mi?rcoles",   ifelse(  
       DB2015$dia_sem_ocu ==  4, "Jueves",   ifelse(
         DB2015$dia_sem_ocu ==  5, "Viernes",    ifelse(
-          DB2015$dia_sem_ocu ==  6, "Sábado",  "Domingo"
+          DB2015$dia_sem_ocu ==  6, "S?bado",  "Domingo"
         )))))))
 #hora
 DB2015$g_hora <- as.factor(ifelse(DB2015$g_hora ==  1, "00:00 a 05:59", ifelse(
@@ -462,8 +462,8 @@ DB2015$g_hora <- as.factor(ifelse(DB2015$g_hora ==  1, "00:00 a 05:59", ifelse(
     DB2015$g_hora ==  3, "12:00 a 17:59", "18:00 a 23:59"
   ))))
 #clasificacion extra de horas
-DB2015$g_hora_5 <- as.factor(ifelse(DB2015$g_hora ==  "00:00 a 05:59" , "Mañana", ifelse(
-  DB2015$g_hora ==  "06:00 a 11:59", "Mañana", ifelse(
+DB2015$g_hora_5 <- as.factor(ifelse(DB2015$g_hora ==  "00:00 a 05:59" , "Ma?ana", ifelse(
+  DB2015$g_hora ==  "06:00 a 11:59", "Ma?ana", ifelse(
     DB2015$g_hora ==  "12:00 a 17:59", "Tarde", "Noche"
   ))))
 
@@ -488,36 +488,36 @@ DB2015$color_veh <- as.factor(ifelse(DB2015$color_veh ==  1 , "Rojo", ifelse(
                               ))))))))))))))))))
 
 #vehiculo
-DB2015$tipo_veh<- as.factor(ifelse(DB2015$tipo_veh ==  1 , "Automóvil", ifelse(
+DB2015$tipo_veh<- as.factor(ifelse(DB2015$tipo_veh ==  1 , "Autom?vil", ifelse(
   DB2015$tipo_veh ==  2, "Camioneta", ifelse(
     DB2015$tipo_veh ==  3, "Pick up",   ifelse(  
       DB2015$tipo_veh ==  4, "Motocicleta",   ifelse(
-        DB2015$tipo_veh ==  5, "Camión",  ifelse(
+        DB2015$tipo_veh ==  5, "Cami?n",  ifelse(
           DB2015$tipo_veh ==  6, "Cabezal",  ifelse(
             DB2015$tipo_veh ==  7, "Bus extraurbano",  ifelse(
               DB2015$tipo_veh ==  8, "Jeep",  ifelse(
-                DB2015$tipo_veh ==  9, "Microbús",  ifelse(
+                DB2015$tipo_veh ==  9, "Microb?s",  ifelse(
                   DB2015$tipo_veh ==  10, "Taxi",  ifelse(
                     DB2015$tipo_veh ==  11, "Panel",  ifelse(
                       DB2015$tipo_veh ==  12, "Bus urbano",  ifelse(
                         DB2015$tipo_veh ==  13, "Tractor",  ifelse(
                           DB2015$tipo_veh ==  14, "Moto taxi",  ifelse(
-                            DB2015$tipo_veh ==  15, "Furgón",  ifelse(
-                              DB2015$tipo_veh ==  16, "Grúa",  ifelse(
+                            DB2015$tipo_veh ==  15, "Furg?n",  ifelse(
+                              DB2015$tipo_veh ==  16, "Gr?a",  ifelse(
                                 DB2015$tipo_veh ==  17, "Bus escolar",  ifelse(
                                   DB2015$tipo_veh ==  18, "Bicicleta",  "Ignorado"
                                 )))))))))))))))))))
 #limpieza Departamentos
 DB2015$depto_ocu <- as.factor(ifelse(DB2015$depto_ocu ==  1 , "Guatemala", ifelse(
   DB2015$depto_ocu ==  2, "El Progreso", ifelse(
-    DB2015$depto_ocu ==  3, "Sacatepéquez",   ifelse(  
+    DB2015$depto_ocu ==  3, "Sacatep?quez",   ifelse(  
       DB2015$depto_ocu ==  4, "Chimaltenango",   ifelse(
         DB2015$depto_ocu ==  5, "Escuintla",    ifelse(
           DB2015$depto_ocu ==  6, "Santa Rosa",   ifelse(
-            DB2015$depto_ocu ==  7, "Sololá",   ifelse(
-              DB2015$depto_ocu ==  8, "Totonicapán",  ifelse(
+            DB2015$depto_ocu ==  7, "Solol?",   ifelse(
+              DB2015$depto_ocu ==  8, "Totonicap?n",  ifelse(
                 DB2015$depto_ocu ==  9, "Quetzaltenango",    ifelse(
-                  DB2015$depto_ocu ==  10, "Suchitepéquez",    ifelse(
+                  DB2015$depto_ocu ==  10, "Suchitep?quez",    ifelse(
                     DB2015$depto_ocu ==  11, "Retalhuleu",  ifelse( 
                       DB2015$depto_ocu ==  12, "San Marcos",  ifelse(  
                         DB2015$depto_ocu ==  13, "Huehuetenango",  ifelse( 
@@ -543,9 +543,9 @@ DB2016$marca_veh <- NULL
 DB2016$modelo_veh <- NULL
 DB2016$g_modelo_veh <- NULL
 DB2016$tipo_eve <- NULL
-DB2016$área_geo_ocu <- NULL
-names(DB2016)[names(DB2016) == "año_ocu"] <- "anio_ocu"
-names(DB2016)[names(DB2016) == "día_sem_ocu"] <- "dia_sem_ocu"
+DB2016$?rea_geo_ocu <- NULL
+names(DB2016)[names(DB2016) == "a?o_ocu"] <- "anio_ocu"
+names(DB2016)[names(DB2016) == "d?a_sem_ocu"] <- "dia_sem_ocu"
 
 #limpiamos 2017
 DB2017$num_corre <- NULL
@@ -556,9 +556,9 @@ DB2017$marca_veh <- NULL
 DB2017$modelo_veh <- NULL
 DB2017$g_modelo_veh <- NULL
 DB2017$tipo_eve <- NULL
-DB2017$área_geo_ocu <- NULL
-names(DB2017)[names(DB2017) == "año_ocu"] <- "anio_ocu"
-names(DB2017)[names(DB2017) == "día_sem_ocu"] <- "dia_sem_ocu"
+DB2017$?rea_geo_ocu <- NULL
+names(DB2017)[names(DB2017) == "a?o_ocu"] <- "anio_ocu"
+names(DB2017)[names(DB2017) == "d?a_sem_ocu"] <- "dia_sem_ocu"
 
 
 View(DB2014)
@@ -580,16 +580,16 @@ str(DBTOTAL)
 
 
 DBTOTAL2 <-DBTOTAL
-#día de la semana
+#d?a de la semana
 DBTOTAL2$dia_sem_ocu <-as.numeric( ifelse(DBTOTAL2$dia_sem_ocu ==  "Lunes" , 1, ifelse(
   DBTOTAL2$dia_sem_ocu ==  "Martes", 2, ifelse(
-    DBTOTAL2$dia_sem_ocu ==  "Miércoles", 3,   ifelse(  
+    DBTOTAL2$dia_sem_ocu ==  "Mi?rcoles", 3,   ifelse(  
       DBTOTAL2$dia_sem_ocu ==  "Jueves", 4,   ifelse(
         DBTOTAL2$dia_sem_ocu ==  "Viernes", 5,    ifelse(
-          DBTOTAL2$dia_sem_ocu ==  "Sábado", 6,  7
+          DBTOTAL2$dia_sem_ocu ==  "S?bado", 6,  7
         )))))))
 
-#año
+#a?o
 DBTOTAL2$anio_ocu <- as.numeric(DBTOTAL2$anio_ocu)
 
 #g_hora
@@ -612,22 +612,22 @@ DBTOTAL2$mes_ocu <- as.numeric(ifelse(DBTOTAL2$mes_ocu ==  "Enero" , 1, ifelse(
                     DBTOTAL2$mes_ocu ==  "Noviembre", 11,  12
                   ))))))))))))
 #Tipo de vehiculo
-DBTOTAL2$tipo_veh<- as.numeric(ifelse(DBTOTAL2$tipo_veh ==  "Automóvil" ,1 , ifelse(
+DBTOTAL2$tipo_veh<- as.numeric(ifelse(DBTOTAL2$tipo_veh ==  "Autom?vil" ,1 , ifelse(
   DBTOTAL2$tipo_veh == "Camioneta",2,  ifelse(
     DBTOTAL2$tipo_veh == "Pick up", 3,    ifelse(  
       DBTOTAL2$tipo_veh ==  "Motocicleta",4,    ifelse(
-        DBTOTAL2$tipo_veh == "Camión",  5,  ifelse(
+        DBTOTAL2$tipo_veh == "Cami?n",  5,  ifelse(
           DBTOTAL2$tipo_veh == "Cabezal",  6,   ifelse(
             DBTOTAL2$tipo_veh ==  "Bus extraurbano", 7,  ifelse(
               DBTOTAL2$tipo_veh ==  "Jeep", 8,  ifelse(
-                DBTOTAL2$tipo_veh ==  "Microbús", 9,  ifelse(
+                DBTOTAL2$tipo_veh ==  "Microb?s", 9,  ifelse(
                   DBTOTAL2$tipo_veh ==  "Taxi", 10,  ifelse(
                     DBTOTAL2$tipo_veh == "Panel",  11,  ifelse(
                       DBTOTAL2$tipo_veh ==  "Bus urbano", 12,  ifelse(
                         DBTOTAL2$tipo_veh == "Tractor",  13,  ifelse(
                           DBTOTAL2$tipo_veh ==  "Moto taxi", 14,   ifelse(
-                            DBTOTAL2$tipo_veh == "Furgón",  15,  ifelse(
-                              DBTOTAL2$tipo_veh ==  "Grúa", 16,  ifelse(
+                            DBTOTAL2$tipo_veh == "Furg?n",  15,  ifelse(
+                              DBTOTAL2$tipo_veh ==  "Gr?a", 16,  ifelse(
                                 DBTOTAL2$tipo_veh == "Bus escolar",  17,  ifelse(
                                   DBTOTAL2$tipo_veh ==  "Bicicleta", 18,  99
                                 )))))))))))))))))))
@@ -636,14 +636,14 @@ DBTOTAL2$hora_ocu <- as.numeric(DBTOTAL$hora_ocu)
 #Departamento 
 DBTOTAL2$depto_ocu <- as.numeric(ifelse(DBTOTAL2$depto_ocu ==  "Guatemala" , 1, ifelse(
   DBTOTAL2$depto_ocu ==  "El Progreso", 2, ifelse(
-    DBTOTAL2$depto_ocu ==  "Sacatepéquez", 3,   ifelse(  
+    DBTOTAL2$depto_ocu ==  "Sacatep?quez", 3,   ifelse(  
       DBTOTAL2$depto_ocu ==  "Chimaltenango", 4,   ifelse(
         DBTOTAL2$depto_ocu ==  "Escuintla", 5,    ifelse(
           DBTOTAL2$depto_ocu ==  "Santa Rosa", 6,   ifelse(
-            DBTOTAL2$depto_ocu ==  "Sololá", 7,   ifelse(
-              DBTOTAL2$depto_ocu ==  "Totonicapán", 8,  ifelse(
+            DBTOTAL2$depto_ocu ==  "Solol?", 7,   ifelse(
+              DBTOTAL2$depto_ocu ==  "Totonicap?n", 8,  ifelse(
                 DBTOTAL2$depto_ocu ==  "Quetzaltenango", 9,    ifelse(
-                  DBTOTAL2$depto_ocu ==  "Suchitepéquez", 10,    ifelse(
+                  DBTOTAL2$depto_ocu ==  "Suchitep?quez", 10,    ifelse(
                     DBTOTAL2$depto_ocu ==  "Retalhuleu", 11,  ifelse( 
                       DBTOTAL2$depto_ocu ==  "San Marcos", 12,  ifelse(  
                         DBTOTAL2$depto_ocu ==  "Huehuetenango", 13,  ifelse( 
@@ -659,8 +659,8 @@ DBTOTAL2$depto_ocu <- as.numeric(ifelse(DBTOTAL2$depto_ocu ==  "Guatemala" , 1, 
 
 #g_hora_5
 #clasificacion extra de horas
-DBTOTAL2$g_hora_5 <- as.numeric(ifelse(DBTOTAL2$g_hora_5 ==  "Mañana" , 1, ifelse(
-  DBTOTAL2$g_hora_5 ==  "Mañana", 2, ifelse(
+DBTOTAL2$g_hora_5 <- as.numeric(ifelse(DBTOTAL2$g_hora_5 ==  "Ma?ana" , 1, ifelse(
+  DBTOTAL2$g_hora_5 ==  "Ma?ana", 2, ifelse(
     DBTOTAL2$g_hora_5 ==  "Tarde",3, 4
   ))))
 #color
@@ -725,4 +725,37 @@ library(openxlsx)
 excel_motos_ine <- write.xlsx(data_motos_ine,".xlsx")
 saveWorkbook(excel_motos_ine, file = "motos_ine.xlsx", overwrite = TRUE)
 
+
+#######_______________________SHINY_______________________#############
+library(shiny)
+library(shinythemes)
+
+ui <- fluidPage(theme = shinytheme("cerulean"),
+  navbarPage(
+    theme = "cerulean",
+    "Laboratorio 9 ",
+    tabPanel("General",
+             mainPanel(
+               # Info aqui
+             ) 
+             
+    ),
+    tabPanel("Bayes", 
+      h1("Header 1"),
+    ),
+    tabPanel("Arboles"),
+    tabPanel("RegresiÃ³n lineal")
+    
+  )
+)
+
+
+# Define server function  
+server <- function(input, output) {
+  
+} # server
+
+
+# Create Shiny object
+shinyApp(ui = ui, server = server)
 
