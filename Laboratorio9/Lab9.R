@@ -359,12 +359,12 @@ saveWorkbook(excel_motos_sat, file = "motos_sat.xlsx", overwrite = TRUE)
 #DB2019 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2019INE.sav", to.data.frame=TRUE)
 
 
-DB2014 = read.spss("C:/Users/josea/Desktop/Universidad/2020/DataScience/LabsDataScience/Laboratorio9/2014INE.sav", to.data.frame=TRUE)
-DB2015 = read.csv("C:/Users/josea/Desktop/Universidad/2020/DataScience/LabsDataScience/Laboratorio9/2015INE.csv",stringsAsFactors = FALSE, na.strings = TRUE)
-DB2016 = read.spss("C:/Users/josea/Desktop/Universidad/2020/DataScience/LabsDataScience/Laboratorio9/2016INE.sav", to.data.frame=TRUE)
-DB2017 = read.spss("C:/Users/josea/Desktop/Universidad/2020/DataScience/LabsDataScience/Laboratorio9/2017INE.sav", to.data.frame=TRUE)
-DB2018 = read.spss("C:/Users/josea/Desktop/Universidad/2020/DataScience/LabsDataScience/Laboratorio9/2018INE.sav", to.data.frame=TRUE)
-DB2019 = read.spss("C:/Users/josea/Desktop/Universidad/2020/DataScience/LabsDataScience/Laboratorio9/2019INE.sav", to.data.frame=TRUE)
+DB2014 = read.spss("2014INE.sav", to.data.frame=TRUE)
+DB2015 = read.csv("2015INE.csv",stringsAsFactors = FALSE, na.strings = TRUE)
+DB2016 = read.spss("2016INE.sav", to.data.frame=TRUE)
+DB2017 = read.spss("2017INE.sav", to.data.frame=TRUE)
+DB2018 = read.spss("2018INE.sav", to.data.frame=TRUE)
+#DB2019 = read.spss("C:/Users/jio9/2019INE.sav", to.data.frame=TRUE)
 
 #View(DB2014)
 #View(DB2015)
@@ -743,14 +743,14 @@ train <- sample_frac(DBTOTAL_ARBOLES, .70)
 test <- setdiff(DBTOTAL_ARBOLES, train)
 
 
-arbol_1 <- rpart(formula = train$RESPUESTA ~ ., data =  train[,c(4,6,10)])
+arbol_1 <- rpart(formula = train$RESPUESTA ~ ., data =  train[,c(6,10)])
 rpart.plot(arbol_1, roundint = FALSE)
 prediccion_1 <- predict(arbol_1, newdata = test, type= "class")
 #cruzamos la prediccion con matriz de confusion 
 confusionMatrix(table(prediccion_1, test[["RESPUESTA"]]))
 
 # Ejecución del modelo de clasificación C5.0
-modelo <- C5.0(train$RESPUESTA ~ .,data = train[,c(6,4,10)])
+modelo <- C5.0(train$RESPUESTA ~ .,data = train[,c(4,6,10)])
 summary(modelo) # Información sobre el modelo
 plot(modelo)  #Muestra un nodo en particular
 prediccion <- predict(modelo,newdata=test)
@@ -762,6 +762,7 @@ modeloRF1<-randomForest(train$RESPUESTA~.,data=  train[,c(4,6,7,10)])
 prediccionRF1<-predict(modeloRF1,newdata = test)
 testCompleto<- test
 testCompleto$predRF<-prediccionRF1
+plot(modeloRF1)  #Muestra un nodo en particular
 cfmRandomForest <- confusionMatrix(testCompleto$predRF, testCompleto$RESPUESTA)
 cfmRandomForest
 #------------------------FINALIZA ANALISIS DE ARBOLEs ----------------------
@@ -776,18 +777,50 @@ ui <- fluidPage(theme = shinytheme("united"),
                   "Laboratorio 9 ",
                   tabPanel("General",
                            mainPanel(
-                             h5("El aumento de tráfico vehicular en la ciudad de Guatemala va en aumento. Si bien la cantidad de automotores crece, el espacio siempre sigue siendo el mismo. Un enfoque interesante es el de las motocicletas. Que si bien el uso de automóvil es uno que ocupa más espacio, las motocicletas ocupan menos y su accesibilidad es mayor."),
-                             h5("Mediante un análisis de los datos obtenidos en los portales del INE y la SAT sobre automotores e importaciones, se llega a la conclusión que el bajo coste de una motocicleta, así como el aumento sistemático de impuestos de vehículos durante algunos años, da como resultado que se opte por motocicletas como medio de transporte."),
+                             h2(id="h2", "Información general"),
                              
-                           ) 
-                           
+                             h4("El aumento de tráfico vehicular en la ciudad de Guatemala va en aumento. Si bien la cantidad de automotores crece, el espacio siempre sigue siendo el mismo. Un enfoque interesante es el de las motocicletas. Que si bien el uso de automóvil es uno que ocupa más espacio, las motocicletas ocupan menos y su accesibilidad es mayor."),
+                             h4("Mediante un análisis de los datos obtenidos en los portales del INE y la SAT sobre automotores e importaciones, se llega a la conclusión que el bajo coste de una motocicleta, así como el aumento sistemático de impuestos de vehículos durante algunos años, da como resultado que se opte por motocicletas como medio de transporte."),
+                             h2(id="h2","Datos relevantes"),
+                             column(width = 3,
+                                    h2('60.6%'),
+                                    p('De las motocicletas analizadas poseen un cilindraje pequeño.')
+                             ),
+                             column(width = 3,
+                                    h2('1.19%'),
+                                    p('De las motocicletas son de alto cilindraje, el motivo es tanto el precio como el valor de los impuestos.')
+                             ),
+                             column(width = 3,
+                                    h2('5'),
+                                    p( 'Años fueron analizados y en todos, se nota un aumento del impuesto de importación para vehículos. Lo que propicia el uso de motos.')
+                             ),
+                           ),
+                           tags$style(HTML("#h2{color: #F23005;}")),
                   ),
                   tabPanel("Bayes", 
-                           h1("Header 1")
-                           
+                           h1("Header 1"),
+                           tags$style(HTML("#h2{color: #F23005;}")),
                   ),
                   tabPanel("Arboles",
-                           plotOutput(outputId = "graficoArbol")),
+                           h2(id="h2","Árboles Binarios"),
+                           h4("Un Árbol de Decisión (o Árboles de Decisiones) es un método analítico que a través de una 
+                           representación esquemática de las alternativas disponible facilita la toma de mejores decisiones, 
+                              especialmente cuando existen riesgos, costos, beneficios y múltiples opciones."),
+                           h4("En este laboratorio, se tomó árboles de decisión para tomar los valores de horas, días, etc en el que sucedían accidentes. En especial con cierto tipo de vehículo.
+                              Los resultados de asociar la hora de ocurrencia se muestran en la tabla debajo.
+                              Se nota hay horas que son propensas a sufrir accidentes, como la madrugada. En el gráfico derecho, 
+                              el factor de NONECRASH es más bajo cuando se acerca entre la 1,2,3,4,5 de la madrugada. "),
+                           plotOutput(outputId = "graficoArbol"),
+                           h2(id="h2","Otros datos interesantes"),
+                           h4("Mediante predicción con árboles de decisión, se tomaron valores tanto de hora, día de la semana, etc para demostrar si es posible predecir los accidentes. 
+                              Con un 70% de accuracy, estas variables son buenas para la predicción. Los resultados se muestran en el siguiente texto"),
+                           h3(id="h3","Accuracy : 0.6521"),
+                           h3(id="h3","95% CI : (0.6415, 0.6627) "),
+                           h3(id="h3","No Information Rate : 0.6521"),
+                           h3(id="h3","P-Value [Acc > NIR] : 0.5052"),
+                           tags$style(HTML("#h2{color: #F23005;}")),
+                           tags$style(HTML("#h3{color: #F2441D;}")),
+                           ),
                   tabPanel("Regresión lineal")
                   
                 )
@@ -806,7 +839,7 @@ server <- function(input, output) {
     modelo <- C5.0(train$RESPUESTA ~ .,data = train[,c(6,4,10)])
     summary(modelo) # Información sobre el modelo
     plot(modelo)  #Muestra un nodo en particular
-    #prediccion <- predict(modelo,newdata=test)
+    prediccion <- predict(modelo,newdata=test)
     #confusionMatrix(table(prediccion, test$RESPUESTA))
   })
 } # server
