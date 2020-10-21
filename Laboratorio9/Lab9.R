@@ -725,4 +725,36 @@ library(openxlsx)
 excel_motos_ine <- write.xlsx(data_motos_ine,".xlsx")
 saveWorkbook(excel_motos_ine, file = "motos_ine.xlsx", overwrite = TRUE)
 
+#######________SHINY________#############
+library(shiny)
+library(shinythemes)
 
+ui <- fluidPage(theme = shinytheme("united"),
+                navbarPage(
+                  theme = "united",
+                  "Laboratorio 9 ",
+                  tabPanel("General",
+                           mainPanel(
+                             h5("El aumento de tráfico vehicular en la ciudad de Guatemala va en aumento. Si bien la cantidad de automotores crece, el espacio siempre sigue siendo el mismo. Un enfoque interesante es el de las motocicletas. Que si bien el uso de automóvil es uno que ocupa más espacio, las motocicletas ocupan menos y su accesibilidad es mayor."),
+                             h5("Mediante un análisis de los datos obtenidos en los portales del INE y la SAT sobre automotores e importaciones, se llega a la conclusión que el bajo coste de una motocicleta, así como el aumento sistemático de impuestos de vehículos durante algunos años, da como resultado que se opte por motocicletas como medio de transporte."),
+                           ) 
+                           
+                  ),
+                  tabPanel("Bayes", 
+                           h1("Header 1")
+                  ),
+                  tabPanel("Arboles"),
+                  tabPanel("Regresión lineal")
+                  
+                )
+)
+
+
+# Define server function  
+server <- function(input, output) {
+  
+} # server
+
+
+# Create Shiny object
+shinyApp(ui = ui, server = server)
