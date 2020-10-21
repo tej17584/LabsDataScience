@@ -9,8 +9,8 @@ library(cluster) #Para calcular la silueta
 library(e1071)#para cmeans
 library(mclust) #mixtures of gaussians
 library(fpc) #para hacer el plotcluster
-library(NbClust) #Para determinar el número de clusters óptimo
-library(factoextra) #Para hacer gráficos bonitos de clustering
+library(NbClust) #Para determinar el nÃºmero de clusters Ã³ptimo
+library(factoextra) #Para hacer grÃ¡ficos bonitos de clustering
 
 #install.packages("klaR")
 #install.packages("cba")
@@ -96,7 +96,7 @@ dataSat2016 <- rbind(data012016,
                      data102016,
                      data112016,
                      data122016)
-dataSat2016$Año <- "2016"
+dataSat2016$AÃ±o <- "2016"
 ##View(dataSat2016)
 
 #2017
@@ -124,7 +124,7 @@ dataSat2017 <- rbind(data012017,
                      data102017,
                      data112017,
                      data122017)
-dataSat2017$Año <- "2017"
+dataSat2017$AÃ±o <- "2017"
 ##View(dataSat2017)
 
 #2018
@@ -152,7 +152,7 @@ dataSat2018 <- rbind(data012018,
                      data102018,
                      data112018,
                      data122018)
-dataSat2018$Año <- "2018"
+dataSat2018$AÃ±o <- "2018"
 ##View(dataSat2018)
 
 #2019
@@ -180,7 +180,7 @@ dataSat2019 <- rbind(data012019,
                      data102019,
                      data112019,
                      data122019)
-dataSat2019$Año <- "2019"
+dataSat2019$AÃ±o <- "2019"
 ##View(dataSat2019)
 
 ### Unimos la data y nombramos bien las columnas por un problema de **row.names**
@@ -258,7 +258,7 @@ data_motos_$Centimetros.Cubicos_ <- as.numeric(data_motos_$Centimetros.Cubicos_)
 data_motos_$Asientos_ <- as.numeric(data_motos_$Asientos_) 
 data_motos_$Puertas_ <- as.numeric(data_motos_$Puertas_) 
 data_motos_$Tonelaje_ <- as.numeric(data_motos_$Tonelaje_) 
-data_motos_$Año <- as.numeric(data_motos_$Año)
+data_motos_$AÃ±o <- as.numeric(data_motos_$AÃ±o)
 data_motos_$Modelo.del.Vehiculo_ <- as.numeric(data_motos_$Modelo.del.Vehiculo_)
 
 summary(data_motos_)
@@ -320,9 +320,9 @@ with(data_motos_, plot(x=Impuesto_, y=Valor.CIF_))
 # Convertir la variable numerica "pasos" en categorica
 # para ello definimos los puntos de corte
 breakPoints <- c(0, 149, 500, Inf)
-categories <- c("Pequeño", "Mediano", "Grande")
+categories <- c("PequeÃ±o", "Mediano", "Grande")
 
-# y cortamos la variable número de pasos segun esta categorizacion
+# y cortamos la variable nÃºmero de pasos segun esta categorizacion
 data_motos_$Centimetros.Cubicos_.F <- cut(data_motos_$Centimetros.Cubicos_, breaks = breakPoints, labels = categories)
 
 summary(data_motos_$Centimetros.Cubicos_)
@@ -351,12 +351,20 @@ saveWorkbook(excel_motos_sat, file = "motos_sat.xlsx", overwrite = TRUE)
 
 ###################################   I      N       E   #########################################
 ##### datos del ine___________________________________________________________
-DB2014 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2014INE.sav", to.data.frame=TRUE)
-DB2015 = read.csv("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2015INE.csv",stringsAsFactors = FALSE, na.strings = TRUE)
-DB2016 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2016INE.sav", to.data.frame=TRUE)
-DB2017 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2017INE.sav", to.data.frame=TRUE)
-DB2018 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2018INE.sav", to.data.frame=TRUE)
-DB2019 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2019INE.sav", to.data.frame=TRUE)
+#DB2014 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2014INE.sav", to.data.frame=TRUE)
+#DB2015 = read.csv("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2015INE.csv",stringsAsFactors = FALSE, na.strings = TRUE)
+#DB2016 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2016INE.sav", to.data.frame=TRUE)
+#DB2017 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2017INE.sav", to.data.frame=TRUE)
+#DB2018 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2018INE.sav", to.data.frame=TRUE)
+#DB2019 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2019INE.sav", to.data.frame=TRUE)
+
+
+DB2014 = read.spss("C:/Users/josea/Desktop/Universidad/2020/DataScience/LabsDataScience/Laboratorio9/2014INE.sav", to.data.frame=TRUE)
+DB2015 = read.csv("C:/Users/josea/Desktop/Universidad/2020/DataScience/LabsDataScience/Laboratorio9/2015INE.csv",stringsAsFactors = FALSE, na.strings = TRUE)
+DB2016 = read.spss("C:/Users/josea/Desktop/Universidad/2020/DataScience/LabsDataScience/Laboratorio9/2016INE.sav", to.data.frame=TRUE)
+DB2017 = read.spss("C:/Users/josea/Desktop/Universidad/2020/DataScience/LabsDataScience/Laboratorio9/2017INE.sav", to.data.frame=TRUE)
+DB2018 = read.spss("C:/Users/josea/Desktop/Universidad/2020/DataScience/LabsDataScience/Laboratorio9/2018INE.sav", to.data.frame=TRUE)
+DB2019 = read.spss("C:/Users/josea/Desktop/Universidad/2020/DataScience/LabsDataScience/Laboratorio9/2019INE.sav", to.data.frame=TRUE)
 
 #View(DB2014)
 #View(DB2015)
@@ -366,71 +374,66 @@ DB2019 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/
 #View(DB2019)
 
 
-#limpiamos 2018
-DB2018$día_ocu <- NULL
+DB2018$dÃ­a_ocu <- NULL
 DB2018$mupio_ocu <- NULL
 DB2018$zona_ocu <- NULL
 DB2018$marca_veh <- NULL
 DB2018$modelo_veh <- NULL
 DB2018$g_modelo_veh <- NULL
 DB2018$tipo_eve <- NULL
-DB2018$núm_corre <- NULL
-names(DB2018)[names(DB2018) == "año_ocu"] <- "anio_ocu"
-names(DB2018)[names(DB2018) == "día_sem_ocu"] <- "dia_sem_ocu"
-DB2018$depto_ocu <- as.factor(ifelse(DB2018$depto_ocu=="Petén", "Peten", as.character(DB2018$depto_ocu)))
-DB2018$depto_ocu <- as.factor(ifelse(DB2018$depto_ocu=="Quiché", "Quiche", as.character(DB2018$depto_ocu)))
+DB2018$nÃºm_corre <- NULL
+names(DB2018)[names(DB2018) == "aÃ±o_ocu"] <- "anio_ocu"
+names(DB2018)[names(DB2018) == "dÃ­a_sem_ocu"] <- "dia_sem_ocu"
+DB2018$depto_ocu <- as.factor(ifelse(DB2018$depto_ocu=="PetÃ©n", "Peten", as.character(DB2018$depto_ocu)))
+DB2018$depto_ocu <- as.factor(ifelse(DB2018$depto_ocu=="QuichÃ©", "Quiche", as.character(DB2018$depto_ocu)))
 
-#Limpiamos el 2014 a Estándares de 2018 Variables que si dejaremos
-DB2014$día_ocu <- NULL
+#Limpiamos el 2014 a EstÃ¡ndares de 2018 Variables que si dejaremos
+DB2014$dÃ­a_ocu <- NULL
 DB2014$mupio_ocu <- NULL
 DB2014$zona_ocu <- NULL
 DB2014$marca_veh <- NULL
 DB2014$modelo_veh <- NULL
 DB2014$g_edad <- NULL
-DB2014$año_ocu <- 2014
+DB2014$aÃ±o_ocu <- 2014
 DB2014$hora_ocu <- as.factor(DB2014$hora_ocu)
 DB2014$corre_base <- NULL
-DB2014$área_geo_ocu <- NULL
+DB2014$Ã¡rea_geo_ocu <- NULL
 DB2014$edad_con <- NULL
 DB2014$mayor_menor <- NULL
 DB2014$estado_con<- NULL
 DB2014$sexo_con <- NULL
 DB2014$num_corre <- NULL
 DB2014$tipo_eve <- NULL
-DB2014$g_hora_5 <- as.factor(ifelse(DB2014$g_hora ==  "00:00 a 05:59" | DB2014$g_hora ==  "06:00 a 11:59" , "Mañana", ifelse(
+DB2014$g_hora_5 <- as.factor(ifelse(DB2014$g_hora ==  "00:00 a 05:59" | DB2014$g_hora ==  "06:00 a 11:59" , "MaÃ±ana", ifelse(
   DB2014$g_hora ==  "12:00 a 17:59", "Tarde", "Noche"
 )))
 DB2014$mes_ocu <- as.factor(ifelse(DB2014$mes_ocu=="Septiemre", "Septiembre", as.character(DB2014$mes_ocu)))
 DB2014$num_correlativo <- NULL
 DB2014$depto_ocu <- as.factor(ifelse(DB2014$depto_ocu=="Santa rosa", "Santa Rosa", as.character(DB2014$depto_ocu)))
-DB2014$tipo_veh <- as.factor(ifelse(DB2014$tipo_veh=="Microbus", "Microbús", as.character(DB2014$tipo_veh)))
+DB2014$tipo_veh <- as.factor(ifelse(DB2014$tipo_veh=="Microbus", "MicrobÃºs", as.character(DB2014$tipo_veh)))
 
 #limpiamos tildes
-names(DB2014)[names(DB2014) == "día_sem_ocu"] <- "dia_sem_ocu"
-names(DB2014)[names(DB2014) == "año_ocu"] <- "anio_ocu"
-
-View(DB2014)
-######Fin limpieza 2014
-
+names(DB2014)[names(DB2014) == "dÃ­a_sem_ocu"] <- "dia_sem_ocu"
+names(DB2014)[names(DB2014) == "aÃ±o_ocu"] <- "anio_ocu"
 #Limpiamos 2015
-DB2015$núm_corre <- NULL
-DB2015$día_ocu <- NULL
+DB2015$nÃºm_corre <- NULL
+DB2015$dÃ­a_ocu <- NULL
 DB2015$mupio_ocu <- NULL
 DB2015$zona_ocu <- NULL
 DB2015$marca_veh <- NULL
 DB2015$modelo_veh <- NULL
 DB2015$g_modelo_veh <- NULL
 DB2015$tipo_eve <- NULL
-DB2015$área_geo_ocu <- NULL
+DB2015$Ã¡rea_geo_ocu <- NULL
 DB2015$sexo_per <- NULL
 DB2015$edad_per <- NULL
 DB2015$estado_con <- NULL
 DB2015$edad_quinquenales<- NULL
-DB2015$g_edad_60ymás<- NULL
-DB2015$g_edad_80ymás<- NULL
+DB2015$g_edad_60ymÃ¡s<- NULL
+DB2015$g_edad_80ymÃ¡s<- NULL
 DB2015$mayor_menor<- NULL
-names(DB2015)[names(DB2015) == "año_ocu"] <- "anio_ocu"
-names(DB2015)[names(DB2015) == "día_sem_ocu"] <- "dia_sem_ocu"
+names(DB2015)[names(DB2015) == "aÃ±o_ocu"] <- "anio_ocu"
+names(DB2015)[names(DB2015) == "dÃ­a_sem_ocu"] <- "dia_sem_ocu"
 #limpiamos a profundidadd 015
 DB2015$anio_ocu <- as.numeric(DB2015$anio_ocu) 
 DB2015$hora_ocu <- as.factor(DB2015$hora_ocu)
@@ -448,13 +451,13 @@ DB2015$mes_ocu <- as.factor(ifelse(DB2015$mes_ocu ==  1 , "Enero", ifelse(
                     DB2015$mes_ocu ==  11, "Noviembre",  "Diciembre"
                   ))))))))))))
 
-#día de la semana
+#dÃ­a de la semana
 DB2015$dia_sem_ocu <- as.factor(ifelse(DB2015$dia_sem_ocu ==  1 , "Lunes", ifelse(
   DB2015$dia_sem_ocu ==  2, "Martes", ifelse(
-    DB2015$dia_sem_ocu ==  3, "Miércoles",   ifelse(  
+    DB2015$dia_sem_ocu ==  3, "MiÃ©rcoles",   ifelse(  
       DB2015$dia_sem_ocu ==  4, "Jueves",   ifelse(
         DB2015$dia_sem_ocu ==  5, "Viernes",    ifelse(
-          DB2015$dia_sem_ocu ==  6, "Sábado",  "Domingo"
+          DB2015$dia_sem_ocu ==  6, "SÃ¡bado",  "Domingo"
         )))))))
 #hora
 DB2015$g_hora <- as.factor(ifelse(DB2015$g_hora ==  1, "00:00 a 05:59", ifelse(
@@ -462,8 +465,8 @@ DB2015$g_hora <- as.factor(ifelse(DB2015$g_hora ==  1, "00:00 a 05:59", ifelse(
     DB2015$g_hora ==  3, "12:00 a 17:59", "18:00 a 23:59"
   ))))
 #clasificacion extra de horas
-DB2015$g_hora_5 <- as.factor(ifelse(DB2015$g_hora ==  "00:00 a 05:59" , "Mañana", ifelse(
-  DB2015$g_hora ==  "06:00 a 11:59", "Mañana", ifelse(
+DB2015$g_hora_5 <- as.factor(ifelse(DB2015$g_hora ==  "00:00 a 05:59" , "MaÃ±ana", ifelse(
+  DB2015$g_hora ==  "06:00 a 11:59", "MaÃ±ana", ifelse(
     DB2015$g_hora ==  "12:00 a 17:59", "Tarde", "Noche"
   ))))
 
@@ -488,36 +491,36 @@ DB2015$color_veh <- as.factor(ifelse(DB2015$color_veh ==  1 , "Rojo", ifelse(
                               ))))))))))))))))))
 
 #vehiculo
-DB2015$tipo_veh<- as.factor(ifelse(DB2015$tipo_veh ==  1 , "Automóvil", ifelse(
+DB2015$tipo_veh<- as.factor(ifelse(DB2015$tipo_veh ==  1 , "AutomÃ³vil", ifelse(
   DB2015$tipo_veh ==  2, "Camioneta", ifelse(
     DB2015$tipo_veh ==  3, "Pick up",   ifelse(  
       DB2015$tipo_veh ==  4, "Motocicleta",   ifelse(
-        DB2015$tipo_veh ==  5, "Camión",  ifelse(
+        DB2015$tipo_veh ==  5, "CamiÃ³n",  ifelse(
           DB2015$tipo_veh ==  6, "Cabezal",  ifelse(
             DB2015$tipo_veh ==  7, "Bus extraurbano",  ifelse(
               DB2015$tipo_veh ==  8, "Jeep",  ifelse(
-                DB2015$tipo_veh ==  9, "Microbús",  ifelse(
+                DB2015$tipo_veh ==  9, "MicrobÃºs",  ifelse(
                   DB2015$tipo_veh ==  10, "Taxi",  ifelse(
                     DB2015$tipo_veh ==  11, "Panel",  ifelse(
                       DB2015$tipo_veh ==  12, "Bus urbano",  ifelse(
                         DB2015$tipo_veh ==  13, "Tractor",  ifelse(
                           DB2015$tipo_veh ==  14, "Moto taxi",  ifelse(
-                            DB2015$tipo_veh ==  15, "Furgón",  ifelse(
-                              DB2015$tipo_veh ==  16, "Grúa",  ifelse(
+                            DB2015$tipo_veh ==  15, "FurgÃ³n",  ifelse(
+                              DB2015$tipo_veh ==  16, "GrÃºa",  ifelse(
                                 DB2015$tipo_veh ==  17, "Bus escolar",  ifelse(
                                   DB2015$tipo_veh ==  18, "Bicicleta",  "Ignorado"
                                 )))))))))))))))))))
 #limpieza Departamentos
 DB2015$depto_ocu <- as.factor(ifelse(DB2015$depto_ocu ==  1 , "Guatemala", ifelse(
   DB2015$depto_ocu ==  2, "El Progreso", ifelse(
-    DB2015$depto_ocu ==  3, "Sacatepéquez",   ifelse(  
+    DB2015$depto_ocu ==  3, "SacatepÃ©quez",   ifelse(  
       DB2015$depto_ocu ==  4, "Chimaltenango",   ifelse(
         DB2015$depto_ocu ==  5, "Escuintla",    ifelse(
           DB2015$depto_ocu ==  6, "Santa Rosa",   ifelse(
-            DB2015$depto_ocu ==  7, "Sololá",   ifelse(
-              DB2015$depto_ocu ==  8, "Totonicapán",  ifelse(
+            DB2015$depto_ocu ==  7, "SololÃ¡",   ifelse(
+              DB2015$depto_ocu ==  8, "TotonicapÃ¡n",  ifelse(
                 DB2015$depto_ocu ==  9, "Quetzaltenango",    ifelse(
-                  DB2015$depto_ocu ==  10, "Suchitepéquez",    ifelse(
+                  DB2015$depto_ocu ==  10, "SuchitepÃ©quez",    ifelse(
                     DB2015$depto_ocu ==  11, "Retalhuleu",  ifelse( 
                       DB2015$depto_ocu ==  12, "San Marcos",  ifelse(  
                         DB2015$depto_ocu ==  13, "Huehuetenango",  ifelse( 
@@ -532,41 +535,33 @@ DB2015$depto_ocu <- as.factor(ifelse(DB2015$depto_ocu ==  1 , "Guatemala", ifels
                                       ))))))))))))))))))))))
 
 #fin limpieza 2015 
-View(DB2015)
 
 #Limpiamos 2016
-DB2016$num_corre<- NULL
-DB2016$dia_sem_ocu <- NULL
+DB2016$nÃºm_corre <- NULL
+DB2016$dÃ­a_ocu <- NULL
 DB2016$mupio_ocu <- NULL
 DB2016$zona_ocu <- NULL
 DB2016$marca_veh <- NULL
 DB2016$modelo_veh <- NULL
 DB2016$g_modelo_veh <- NULL
 DB2016$tipo_eve <- NULL
-DB2016$área_geo_ocu <- NULL
-names(DB2016)[names(DB2016) == "año_ocu"] <- "anio_ocu"
-names(DB2016)[names(DB2016) == "día_sem_ocu"] <- "dia_sem_ocu"
+DB2016$Ã¡rea_geo_ocu <- NULL
+names(DB2016)[names(DB2016) == "aÃ±o_ocu"] <- "anio_ocu"
+names(DB2016)[names(DB2016) == "dÃ­a_sem_ocu"] <- "dia_sem_ocu"
 
 #limpiamos 2017
-DB2017$num_corre <- NULL
-DB2017$dia_ocu <- NULL
+DB2017$nÃºm_corre <- NULL
+DB2017$dÃ­a_ocu <- NULL
 DB2017$mupio_ocu <- NULL
 DB2017$zona_ocu <- NULL
 DB2017$marca_veh <- NULL
 DB2017$modelo_veh <- NULL
 DB2017$g_modelo_veh <- NULL
 DB2017$tipo_eve <- NULL
-DB2017$área_geo_ocu <- NULL
-names(DB2017)[names(DB2017) == "año_ocu"] <- "anio_ocu"
-names(DB2017)[names(DB2017) == "día_sem_ocu"] <- "dia_sem_ocu"
+DB2017$Ã¡rea_geo_ocu <- NULL
+names(DB2017)[names(DB2017) == "aÃ±o_ocu"] <- "anio_ocu"
+names(DB2017)[names(DB2017) == "dÃ­a_sem_ocu"] <- "dia_sem_ocu"
 
-
-View(DB2014)
-View(DB2015)
-View(DB2016)
-View(DB2017)
-View(DB2018)
-View(DB2019)
 
 #UNIMOS TODA LA DATA
 DBTOTAL <- rbind(DB2015 ,DB2016, DB2017,DB2018)
@@ -580,16 +575,16 @@ str(DBTOTAL)
 
 
 DBTOTAL2 <-DBTOTAL
-#día de la semana
+#dÃ­a de la semana
 DBTOTAL2$dia_sem_ocu <-as.numeric( ifelse(DBTOTAL2$dia_sem_ocu ==  "Lunes" , 1, ifelse(
   DBTOTAL2$dia_sem_ocu ==  "Martes", 2, ifelse(
-    DBTOTAL2$dia_sem_ocu ==  "Miércoles", 3,   ifelse(  
+    DBTOTAL2$dia_sem_ocu ==  "MiÃ©rcoles", 3,   ifelse(  
       DBTOTAL2$dia_sem_ocu ==  "Jueves", 4,   ifelse(
         DBTOTAL2$dia_sem_ocu ==  "Viernes", 5,    ifelse(
-          DBTOTAL2$dia_sem_ocu ==  "Sábado", 6,  7
+          DBTOTAL2$dia_sem_ocu ==  "SÃ¡bado", 6,  7
         )))))))
 
-#año
+#aÃ±o
 DBTOTAL2$anio_ocu <- as.numeric(DBTOTAL2$anio_ocu)
 
 #g_hora
@@ -612,22 +607,22 @@ DBTOTAL2$mes_ocu <- as.numeric(ifelse(DBTOTAL2$mes_ocu ==  "Enero" , 1, ifelse(
                     DBTOTAL2$mes_ocu ==  "Noviembre", 11,  12
                   ))))))))))))
 #Tipo de vehiculo
-DBTOTAL2$tipo_veh<- as.numeric(ifelse(DBTOTAL2$tipo_veh ==  "Automóvil" ,1 , ifelse(
+DBTOTAL2$tipo_veh<- as.numeric(ifelse(DBTOTAL2$tipo_veh ==  "AutomÃ³vil" ,1 , ifelse(
   DBTOTAL2$tipo_veh == "Camioneta",2,  ifelse(
     DBTOTAL2$tipo_veh == "Pick up", 3,    ifelse(  
       DBTOTAL2$tipo_veh ==  "Motocicleta",4,    ifelse(
-        DBTOTAL2$tipo_veh == "Camión",  5,  ifelse(
+        DBTOTAL2$tipo_veh == "CamiÃ³n",  5,  ifelse(
           DBTOTAL2$tipo_veh == "Cabezal",  6,   ifelse(
             DBTOTAL2$tipo_veh ==  "Bus extraurbano", 7,  ifelse(
               DBTOTAL2$tipo_veh ==  "Jeep", 8,  ifelse(
-                DBTOTAL2$tipo_veh ==  "Microbús", 9,  ifelse(
+                DBTOTAL2$tipo_veh ==  "MicrobÃºs", 9,  ifelse(
                   DBTOTAL2$tipo_veh ==  "Taxi", 10,  ifelse(
                     DBTOTAL2$tipo_veh == "Panel",  11,  ifelse(
                       DBTOTAL2$tipo_veh ==  "Bus urbano", 12,  ifelse(
                         DBTOTAL2$tipo_veh == "Tractor",  13,  ifelse(
                           DBTOTAL2$tipo_veh ==  "Moto taxi", 14,   ifelse(
-                            DBTOTAL2$tipo_veh == "Furgón",  15,  ifelse(
-                              DBTOTAL2$tipo_veh ==  "Grúa", 16,  ifelse(
+                            DBTOTAL2$tipo_veh == "FurgÃ³n",  15,  ifelse(
+                              DBTOTAL2$tipo_veh ==  "GrÃºa", 16,  ifelse(
                                 DBTOTAL2$tipo_veh == "Bus escolar",  17,  ifelse(
                                   DBTOTAL2$tipo_veh ==  "Bicicleta", 18,  99
                                 )))))))))))))))))))
@@ -636,14 +631,14 @@ DBTOTAL2$hora_ocu <- as.numeric(DBTOTAL$hora_ocu)
 #Departamento 
 DBTOTAL2$depto_ocu <- as.numeric(ifelse(DBTOTAL2$depto_ocu ==  "Guatemala" , 1, ifelse(
   DBTOTAL2$depto_ocu ==  "El Progreso", 2, ifelse(
-    DBTOTAL2$depto_ocu ==  "Sacatepéquez", 3,   ifelse(  
+    DBTOTAL2$depto_ocu ==  "SacatepÃ©quez", 3,   ifelse(  
       DBTOTAL2$depto_ocu ==  "Chimaltenango", 4,   ifelse(
         DBTOTAL2$depto_ocu ==  "Escuintla", 5,    ifelse(
           DBTOTAL2$depto_ocu ==  "Santa Rosa", 6,   ifelse(
-            DBTOTAL2$depto_ocu ==  "Sololá", 7,   ifelse(
-              DBTOTAL2$depto_ocu ==  "Totonicapán", 8,  ifelse(
+            DBTOTAL2$depto_ocu ==  "SololÃ¡", 7,   ifelse(
+              DBTOTAL2$depto_ocu ==  "TotonicapÃ¡n", 8,  ifelse(
                 DBTOTAL2$depto_ocu ==  "Quetzaltenango", 9,    ifelse(
-                  DBTOTAL2$depto_ocu ==  "Suchitepéquez", 10,    ifelse(
+                  DBTOTAL2$depto_ocu ==  "SuchitepÃ©quez", 10,    ifelse(
                     DBTOTAL2$depto_ocu ==  "Retalhuleu", 11,  ifelse( 
                       DBTOTAL2$depto_ocu ==  "San Marcos", 12,  ifelse(  
                         DBTOTAL2$depto_ocu ==  "Huehuetenango", 13,  ifelse( 
@@ -659,8 +654,8 @@ DBTOTAL2$depto_ocu <- as.numeric(ifelse(DBTOTAL2$depto_ocu ==  "Guatemala" , 1, 
 
 #g_hora_5
 #clasificacion extra de horas
-DBTOTAL2$g_hora_5 <- as.numeric(ifelse(DBTOTAL2$g_hora_5 ==  "Mañana" , 1, ifelse(
-  DBTOTAL2$g_hora_5 ==  "Mañana", 2, ifelse(
+DBTOTAL2$g_hora_5 <- as.numeric(ifelse(DBTOTAL2$g_hora_5 ==  "MaÃ±ana" , 1, ifelse(
+  DBTOTAL2$g_hora_5 ==  "MaÃ±ana", 2, ifelse(
     DBTOTAL2$g_hora_5 ==  "Tarde",3, 4
   ))))
 #color
@@ -725,6 +720,52 @@ library(openxlsx)
 excel_motos_ine <- write.xlsx(data_motos_ine,".xlsx")
 saveWorkbook(excel_motos_ine, file = "motos_ine.xlsx", overwrite = TRUE)
 
+
+#------------------------INCICIA ANALISIS DE ARBOLEs ----------------------
+#semilla para el random
+set.seed(1)
+#DBTOTAL_ARBOLES <- DBTOTAL2[sample(nrow(DBTOTAL2), 500), ] # 2000 filas
+DBTOTAL_ARBOLES <- DBTOTAL # 2000 filas
+
+#DBTOTAL_ARBOLES<-DBTOTAL
+
+
+DBTOTAL_ARBOLES$RESPUESTA <- as.factor(ifelse((DBTOTAL_ARBOLES$dia_sem_ocu!="") & (DBTOTAL_ARBOLES$depto_ocu=="Guatemala") , "CRASH","NONE"))
+DBTOTAL_ARBOLES2 <-table(DBTOTAL_ARBOLES$RESPUESTA,DBTOTAL_ARBOLES$mes_ocu)
+DBTOTAL_ARBOLES22 <- as.data.frame.matrix(DBTOTAL_ARBOLES2) 
+#color
+
+str(DBTOTAL_ARBOLES)
+#separando la data
+
+set.seed(123)
+train <- sample_frac(DBTOTAL_ARBOLES, .70)
+test <- setdiff(DBTOTAL_ARBOLES, train)
+
+
+arbol_1 <- rpart(formula = train$RESPUESTA ~ ., data =  train[,c(4,6,10)])
+rpart.plot(arbol_1, roundint = FALSE)
+prediccion_1 <- predict(arbol_1, newdata = test, type= "class")
+#cruzamos la prediccion con matriz de confusion 
+confusionMatrix(table(prediccion_1, test[["RESPUESTA"]]))
+
+# EjecuciÃ³n del modelo de clasificaciÃ³n C5.0
+modelo <- C5.0(train$RESPUESTA ~ .,data = train[,c(6,4,10)])
+summary(modelo) # InformaciÃ³n sobre el modelo
+plot(modelo)  #Muestra un nodo en particular
+prediccion <- predict(modelo,newdata=test)
+confusionMatrix(table(prediccion, test$RESPUESTA))
+
+
+
+modeloRF1<-randomForest(train$RESPUESTA~.,data=  train[,c(4,6,7,10)])
+prediccionRF1<-predict(modeloRF1,newdata = test)
+testCompleto<- test
+testCompleto$predRF<-prediccionRF1
+cfmRandomForest <- confusionMatrix(testCompleto$predRF, testCompleto$RESPUESTA)
+cfmRandomForest
+#------------------------FINALIZA ANALISIS DE ARBOLEs ----------------------
+
 #######________SHINY________#############
 library(shiny)
 library(shinythemes)
@@ -735,8 +776,8 @@ ui <- fluidPage(theme = shinytheme("united"),
                   "Laboratorio 9 ",
                   tabPanel("General",
                            mainPanel(
-                             h5("El aumento de tráfico vehicular en la ciudad de Guatemala va en aumento. Si bien la cantidad de automotores crece, el espacio siempre sigue siendo el mismo. Un enfoque interesante es el de las motocicletas. Que si bien el uso de automóvil es uno que ocupa más espacio, las motocicletas ocupan menos y su accesibilidad es mayor."),
-                             h5("Mediante un análisis de los datos obtenidos en los portales del INE y la SAT sobre automotores e importaciones, se llega a la conclusión que el bajo coste de una motocicleta, así como el aumento sistemático de impuestos de vehículos durante algunos años, da como resultado que se opte por motocicletas como medio de transporte."),
+                             h5("El aumento de trÃ¡fico vehicular en la ciudad de Guatemala va en aumento. Si bien la cantidad de automotores crece, el espacio siempre sigue siendo el mismo. Un enfoque interesante es el de las motocicletas. Que si bien el uso de automÃ³vil es uno que ocupa mÃ¡s espacio, las motocicletas ocupan menos y su accesibilidad es mayor."),
+                             h5("Mediante un anÃ¡lisis de los datos obtenidos en los portales del INE y la SAT sobre automotores e importaciones, se llega a la conclusiÃ³n que el bajo coste de una motocicleta, asÃ­ como el aumento sistemÃ¡tico de impuestos de vehÃ­culos durante algunos aÃ±os, da como resultado que se opte por motocicletas como medio de transporte."),
                            ) 
                            
                   ),
@@ -744,7 +785,7 @@ ui <- fluidPage(theme = shinytheme("united"),
                            h1("Header 1")
                   ),
                   tabPanel("Arboles"),
-                  tabPanel("Regresión lineal")
+                  tabPanel("RegresiÃ³n lineal")
                   
                 )
 )
