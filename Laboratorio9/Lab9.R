@@ -11,6 +11,7 @@ library(mclust) #mixtures of gaussians
 library(fpc) #para hacer el plotcluster
 library(NbClust) #Para determinar el n?mero de clusters ?ptimo
 library(factoextra) #Para hacer gr?ficos bonitos de clustering
+library(rsconnect)
 
 #install.packages("klaR")
 #install.packages("cba")
@@ -390,7 +391,7 @@ DB2014$g_edad <- NULL
 DB2014$a?o_ocu <- 2014
 DB2014$hora_ocu <- as.factor(DB2014$hora_ocu)
 DB2014$corre_base <- NULL
-DB2014$?rea_geo_ocu <- NULL
+DB2014$rea_geo_ocu <- NULL
 DB2014$edad_con <- NULL
 DB2014$mayor_menor <- NULL
 DB2014$estado_con<- NULL
@@ -421,7 +422,7 @@ DB2015$marca_veh <- NULL
 DB2015$modelo_veh <- NULL
 DB2015$g_modelo_veh <- NULL
 DB2015$tipo_eve <- NULL
-DB2015$?rea_geo_ocu <- NULL
+DB2015$rea_geo_ocu <- NULL
 DB2015$sexo_per <- NULL
 DB2015$edad_per <- NULL
 DB2015$estado_con <- NULL
@@ -543,7 +544,7 @@ DB2016$marca_veh <- NULL
 DB2016$modelo_veh <- NULL
 DB2016$g_modelo_veh <- NULL
 DB2016$tipo_eve <- NULL
-DB2016$?rea_geo_ocu <- NULL
+DB2016$rea_geo_ocu <- NULL
 names(DB2016)[names(DB2016) == "a?o_ocu"] <- "anio_ocu"
 names(DB2016)[names(DB2016) == "d?a_sem_ocu"] <- "dia_sem_ocu"
 
@@ -556,7 +557,7 @@ DB2017$marca_veh <- NULL
 DB2017$modelo_veh <- NULL
 DB2017$g_modelo_veh <- NULL
 DB2017$tipo_eve <- NULL
-DB2017$?rea_geo_ocu <- NULL
+DB2017$rea_geo_ocu <- NULL
 names(DB2017)[names(DB2017) == "a?o_ocu"] <- "anio_ocu"
 names(DB2017)[names(DB2017) == "d?a_sem_ocu"] <- "dia_sem_ocu"
 
@@ -741,7 +742,7 @@ ui <- fluidPage(theme = shinytheme("cerulean"),
              
     ),
     tabPanel("Bayes", 
-      h1("Header 1"),
+      h1("Header 1")
     ),
     tabPanel("Arboles"),
     tabPanel("Regresión lineal")
