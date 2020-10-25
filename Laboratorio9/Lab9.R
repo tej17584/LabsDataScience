@@ -244,20 +244,21 @@ distint <- sort(distint, decreasing=TRUE)
 tipoimp <- table(data_motos_$Tipo.de.Importador_)
 tipoimp <- sort(tipoimp, decreasing=TRUE)
 
-View(pais)
-View(aduana)
-View(modelo)
-View(marca)
-View(linea)
-View(distint)
-View(tipoimp)
+
+#View(pais)
+#View(aduana)
+#View(modelo)
+#View(marca)
+#View(linea)
+#View(distint)
+#View(tipoimp)
 
 
 ### variables char a numerico
 data_motos_$Centimetros.Cubicos_ <- as.numeric(data_motos_$Centimetros.Cubicos_) 
-data_motos_$Asientos_ <- as.numeric(data_motos_$Asientos_) 
-data_motos_$Puertas_ <- as.numeric(data_motos_$Puertas_) 
-data_motos_$Tonelaje_ <- as.numeric(data_motos_$Tonelaje_) 
+#data_motos_$Asientos_ <- as.numeric(data_motos_$Asientos_) 
+#data_motos_$Puertas_ <- as.numeric(data_motos_$Puertas_) 
+#data_motos_$Tonelaje_ <- as.numeric(data_motos_$Tonelaje_) 
 data_motos_$Año <- as.numeric(data_motos_$Año)
 data_motos_$Modelo.del.Vehiculo_ <- as.numeric(data_motos_$Modelo.del.Vehiculo_)
 
@@ -269,7 +270,7 @@ plot_intro(data_motos_)
 #Conteo
 table(data_motos_$Marca_)
 #data_motos_ <- data_motos_[data_motos_$Tipo.de.Vehiculo_ == 'MOTO',]
-View(data_motos_)
+#####View(data_motos_)
 
 ####PROPORCIONES
 # proporiciones en frecuencia de las marcas
@@ -322,11 +323,12 @@ with(data_motos_, plot(x=Impuesto_, y=Valor.CIF_))
 breakPoints <- c(0, 149, 500, Inf)
 categories <- c("Pequeño", "Mediano", "Grande")
 
-# y cortamos la variable número de pasos segun esta categorizacion
-data_motos_$Centimetros.Cubicos_.F <- cut(data_motos_$Centimetros.Cubicos_, breaks = breakPoints, labels = categories)
 
-summary(data_motos_$Centimetros.Cubicos_)
-View(data_motos_)
+#DESCOMENTAR ESTA PARTE PARA OBSERVAR PORCENTAJES DE TAMAÑO DE MOTOR DE MOTOS ENTRANTES A GUATEMALA
+# y cortamos la variable número de pasos segun esta categorizacion
+##data_motos_$Centimetros.Cubicos_.F <- cut(data_motos_$Centimetros.Cubicos_, breaks = breakPoints, labels = categories)
+###summary(data_motos_$Centimetros.Cubicos_)
+###View(data_motos_)
 
 #intento de de grafica de pie
 #ggplot(data_motos_,aes(x="",y=Centimetros.Cubicos_, fill=Centimetros.Cubicos_.F))+
@@ -334,9 +336,10 @@ View(data_motos_)
 #  coord_polar(theta="y")
 # se hara mejor en excel de acuerdo a infografia
 
-library(openxlsx)
-excel_motos_sat <- write.xlsx(data_motos_,".xlsx")
-saveWorkbook(excel_motos_sat, file = "motos_sat.xlsx", overwrite = TRUE)
+
+#library(openxlsx)
+#excel_motos_sat <- write.xlsx(data_motos_,".xlsx")
+#saveWorkbook(excel_motos_sat, file = "motos_sat.xlsx", overwrite = TRUE)
 
 
 
@@ -351,20 +354,12 @@ saveWorkbook(excel_motos_sat, file = "motos_sat.xlsx", overwrite = TRUE)
 
 ###################################   I      N       E   #########################################
 ##### datos del ine___________________________________________________________
-#DB2014 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2014INE.sav", to.data.frame=TRUE)
-#DB2015 = read.csv("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2015INE.csv",stringsAsFactors = FALSE, na.strings = TRUE)
-#DB2016 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2016INE.sav", to.data.frame=TRUE)
-#DB2017 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2017INE.sav", to.data.frame=TRUE)
-#DB2018 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2018INE.sav", to.data.frame=TRUE)
-#DB2019 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2019INE.sav", to.data.frame=TRUE)
-
-
-DB2014 = read.spss("2014INE.sav", to.data.frame=TRUE)
-DB2015 = read.csv("2015INE.csv",stringsAsFactors = FALSE, na.strings = TRUE)
-DB2016 = read.spss("2016INE.sav", to.data.frame=TRUE)
-DB2017 = read.spss("2017INE.sav", to.data.frame=TRUE)
-DB2018 = read.spss("2018INE.sav", to.data.frame=TRUE)
-#DB2019 = read.spss("C:/Users/jio9/2019INE.sav", to.data.frame=TRUE)
+DB2014 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2014INE.sav", to.data.frame=TRUE)
+DB2015 = read.csv("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2015INE.csv",stringsAsFactors = FALSE, na.strings = TRUE)
+DB2016 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2016INE.sav", to.data.frame=TRUE)
+DB2017 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2017INE.sav", to.data.frame=TRUE)
+DB2018 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2018INE.sav", to.data.frame=TRUE)
+DB2019 = read.spss("C:/Users/Diego Sevilla/Documents/UVG Semestres/Repositorios/8vo Semestre/Data science/LabsDataScience/Laboratorio8/2019INE.sav", to.data.frame=TRUE)
 
 #View(DB2014)
 #View(DB2015)
@@ -374,6 +369,7 @@ DB2018 = read.spss("2018INE.sav", to.data.frame=TRUE)
 #View(DB2019)
 
 
+#limpiamos 2018
 DB2018$día_ocu <- NULL
 DB2018$mupio_ocu <- NULL
 DB2018$zona_ocu <- NULL
@@ -563,8 +559,15 @@ names(DB2017)[names(DB2017) == "año_ocu"] <- "anio_ocu"
 names(DB2017)[names(DB2017) == "día_sem_ocu"] <- "dia_sem_ocu"
 
 
+View(DB2014)
+View(DB2015)
+View(DB2016)
+View(DB2017)
+View(DB2018)
+View(DB2019)
+
 #UNIMOS TODA LA DATA
-DBTOTAL <- rbind(DB2015 ,DB2016, DB2017,DB2018)
+DBTOTAL <- rbind( DB2017,DB2018)
 #View(DBTOTAL)
 str(DBTOTAL)
 
@@ -687,41 +690,60 @@ glimpse(DBTOTAL2)
 str(DBTOTAL2)
 head(DBTOTAL2)
 
-usefull_vars <- DBTOTAL2[,c(3,7,8,10,12,13,17,19,20,21)] 
-#View(usefull_vars)
-str(usefull_vars)
-head(usefull_vars)
 
-data_motos_ine <- usefull_vars[usefull_vars$tipo_veh == 'Motocicleta',]
-View(data_motos_ine)
+#####______________________Prueba con Naive Bayes_________________________#####
 
-table(data_motos_ine$sexo_per)
-table(data_motos_ine$edad_per)
-table(data_motos_ine$estado_con)
-table(data_motos_ine$marca_veh)
-table(data_motos_ine$color_veh)
+View(DBTOTAL)
+DBT_BAYES <- DBTOTAL2  #numericos
+##DBT_BAYES <- DBTOTAL    #factores
+#dÃ­a de la semana
+
+str(DBT_BAYES)
+#numericos
+# Guatemala = 1, 7:00pm = 19, viernes = 5
+DBT_BAYES$finde <- as.factor( ifelse( (DBT_BAYES$depto_ocu == 1) & (DBT_BAYES$hora_ocu > 19) & ( DBT_BAYES$dia_sem_ocu >= 5 ), "CRASH","NONE") )
+DBT_BAYES$entre <- as.factor( ifelse( (DBT_BAYES$depto_ocu == 1) & (DBT_BAYES$hora_ocu > 19) & ( DBT_BAYES$dia_sem_ocu < 5 ), "CRASH","NONE") )
+
+View(DBT_BAYES)
+## PARTICIONES
+
+set.seed(123)
+train <- sample_frac(DBT_BAYES,.70)
+test <- setdiff(DBT_BAYES,train)
+porciento <- 70/100
+trainRowsNumber <- sample(1:nrow(DBT_BAYES),porciento*nrow(DBT_BAYES))
+trainn<-DBT_BAYES[trainRowsNumber,]
+test<-DBT_BAYES[-trainRowsNumber,]
+
+str(train)
+str(test)
+
+#PRUEBA PARA fin de semana
+modelo<-naiveBayes(trainn$finde~.,data=trainn)
+predBayes<-predict(modelo, newdata = test[,1:9])
+confusionMatrix(predBayes,test$finde)
+#PRUEBA PARA entre semana
+modelo<-naiveBayes(trainn$entre~.,data=trainn)
+predBayes<-predict(modelo, newdata = test[,1:9])
+confusionMatrix(predBayes,test$entre)
+
+
+str(trainn)
+str(test) 
+##View(trainn)
+
+#PRUEBA PARA fin de semana
+modelo<-naiveBayes(trainn$finde~.,data=trainn)
+predBayes<-predict(modelo, newdata = test[,1:8])
+confusionMatrix(predBayes,test$finde)
+#PRUEBA PARA entre semana
+modelo<-naiveBayes(trainn$entre~.,data=trainn)
+predBayes<-predict(modelo, newdata = test[,1:8])
+confusionMatrix(predBayes,test$entre)
 
 
 
-edades_motos <- data_motos_ine$edad_per
-edades_motos[edades_motos == 'Ignorada'] <- NA
-edades_motos <- na.omit(edades_motos)
-
-sexo_motos <- data_motos_ine$sexo_per
-sexo_motos[sexo_motos == 'Ignorado'] <- NA
-sexo_motos <- na.omit(sexo_motos)
-
-generoEstado <- table(sexo_motos,data_motos_ine$estado_con)
-plot(generoEstado, col = c("red", "blue"), main = "genero vs. estado")
-
-chisq.test(generoEstado)
-
-library(openxlsx)
-excel_motos_ine <- write.xlsx(data_motos_ine,".xlsx")
-saveWorkbook(excel_motos_ine, file = "motos_ine.xlsx", overwrite = TRUE)
-
-
-#------------------------INCICIA ANALISIS DE ARBOLEs ----------------------
+#------------------------INICIA ANALISIS DE ARBOLEs ----------------------
 #semilla para el random
 set.seed(1)
 #DBTOTAL_ARBOLES <- DBTOTAL2[sample(nrow(DBTOTAL2), 500), ] # 2000 filas
@@ -797,10 +819,6 @@ ui <- fluidPage(theme = shinytheme("united"),
                            ),
                            tags$style(HTML("#h2{color: #F23005;}")),
                   ),
-                  tabPanel("Bayes", 
-                           h1("Header 1"),
-                           tags$style(HTML("#h2{color: #F23005;}")),
-                  ),
                   tabPanel("Arboles",
                            h2(id="h2","Árboles Binarios"),
                            h4("Un Árbol de Decisión (o Árboles de Decisiones) es un método analítico que a través de una 
@@ -821,7 +839,33 @@ ui <- fluidPage(theme = shinytheme("united"),
                            tags$style(HTML("#h2{color: #F23005;}")),
                            tags$style(HTML("#h3{color: #F2441D;}")),
                            ),
-                  tabPanel("Regresión lineal")
+                  tabPanel("Bayes", 
+                           h2(id="h2","Naive Bayes"),
+                           h4("Un clasificador de Bayes ingenuo asume que la presencia o ausencia de una característica particular
+                              no está relacionada con la presencia o ausencia de cualquier otra característica, dada la clase variable.
+                              Una ventaja del clasificador de Bayes ingenuo es que solo se requiere una pequeña cantidad de datos de
+                              entrenamiento para estimar los parámetros (las medias y las varianzas de las variables) necesarias para
+                              la clasificación. "),
+                           h4("En este caso se compararon los porcentajes de accidentes ocurridos en los dias entre semana y los de 
+                              fin de semana. Para poder observar si existe independencia entre ambas variables."),
+                           
+                           h2(id="h2","Observaciones"),
+                           h4("Es interesante observar que el porcentaje de accidentes en fin de semana es mayor al
+                              de dias entre semana, tomando en cuenta la cantidad de accidentes en cada caso. Ademas
+                              se observa una mejor prediccion en los fines de semana que entre semana."),
+                           h4("Resultados para dias de finde semana:"),
+                           h3(id="h3","Accuracy : 0.7311"),
+                           h3(id="h3","95% CI : (0.7211, 0.7408) "),
+                           h3(id="h3","No Information Rate : 0.9495"),
+                           h4("Resultados para dias entre semana:"),
+                           h3(id="h3","Accuracy : 0.6621"),
+                           h3(id="h3","95% CI : (0.6516, 0.6725) "),
+                           h3(id="h3","No Information Rate : 0.9502"),
+                           
+                           
+                           tags$style(HTML("#h2{color: #F23005;}")),
+                           tags$style(HTML("#h3{color: #F2441D;}")),
+                  )
                   
                 )
 )
@@ -842,6 +886,7 @@ server <- function(input, output) {
     prediccion <- predict(modelo,newdata=test)
     #confusionMatrix(table(prediccion, test$RESPUESTA))
   })
+  
 } # server
 
 
